@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">三国</string>
+    <string name="title_activity_main">三国</string>
+    <string name="title_activity_ItemInfo">ItemInformation5</string>
+    <string name="appwidget_text">当前没有任何信息</string>
+    <string name="add_widget">Add widget</string>
+    <string name="Click">Click</string>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.midtermproject.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/head1"
+        android:background="@color/colorBlack1"
+        android:textColor="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:text="英雄好汉"/>
+    <TextView
+        android:id="@+id/head2"
+        android:background="@color/colorBlack1"
+        android:textColor="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:text="我方麾下英雄"/>
+    <View
+        android:id="@+id/boldBar1"
+        android:background="@color/colorGray"
+        android:layout_marginTop="90dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="370dp"
+        android:layout_height="5dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSL1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:borderWidth="0dp"
+        app:backgroundTint="#ffffff"
+        app:rippleColor="#ffffff"
+        app:elevation="5dp"
+        app:pressedTranslationZ="15dp"
+        app:srcCompat="@mipmap/shoplist" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSL2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:borderWidth="0dp"
+        app:backgroundTint="#ffffff"
+        app:rippleColor="#ffffff"
+        app:elevation="5dp"
+        app:pressedTranslationZ="15dp"
+        app:srcCompat="@mipmap/mainpage" />
+
+
+    <include layout="@layout/content_main" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RecyclerView"
+        android:layout_marginTop="98dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical" />
+
+    <ListView
+        android:id="@+id/ListView"
+        android:layout_marginTop="98dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical">
+    </ListView>
+
+</android.support.design.widget.CoordinatorLayout>
