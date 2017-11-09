@@ -240,9 +240,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //ListView实现购物车清单end//////////////////////////////////
-
-
-
     }
 
     /*回调函数，当从子界面回到这个父界面时调用，如果回传数据不为空也即是按下加入购物车则更新购物车列表*/
