@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.widget.RemoteViews;
 
-/**
+/*
  * Created by qingming on 2017/10/28.
  */
 
@@ -43,7 +43,7 @@ public class DynamicBroadcastReceiver extends BroadcastReceiver{
                     .setSmallIcon(tmpR.getimgId())
                     .setAutoCancel(true);//设置这个标志当用户单击面板就可以将通知取消
             //绑定intent，点击图标能够进入某activity
-            Intent mInent=new Intent(context,MainActivity.class);
+            Intent mInent=new Intent(context,RoleLists.class);
             //mInent.addCategory(Intent.CATEGORY_LAUNCHER);
             mInent.addCategory(Intent.CATEGORY_DEFAULT);
             bundle=tmpR.putinbundle();

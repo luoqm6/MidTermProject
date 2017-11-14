@@ -21,6 +21,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".RoleLists"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.example.midtermproject.RoleLists" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ItemInfo"
             android:label="ItemInfo"
             android:theme="@style/AppTheme.NoActionBar">
@@ -48,11 +59,7 @@
                 android:resource="@xml/example_app_widget_provider_info" />
         </receiver>
 
-        <dependency>
-            <groupId>org.greenrobot</groupId>
-            <artifactId>eventbus</artifactId>
-            <version>3.0.0</version>
-        </dependency>
+
 
     </application>
 

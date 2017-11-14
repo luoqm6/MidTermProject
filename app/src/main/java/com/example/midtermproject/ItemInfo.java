@@ -67,7 +67,6 @@ public class ItemInfo extends AppCompatActivity {
             favoriteImg.setImageResource(R.mipmap.full_star);
         }
 
-
 //        final String []btmInfo={"一键下单","分享商品","不感兴趣","查看更多促销信息"};
 //        List<Map<String,Object>> listItems1 = new ArrayList<>();
 //        for(int i=0;i<btmInfo.length;i++){
@@ -130,7 +129,7 @@ public class ItemInfo extends AppCompatActivity {
     public boolean onKeyDown(int KeyCode, KeyEvent keyEvent){
         if(KeyCode== KeyEvent.KEYCODE_BACK){
             Intent intent=new Intent();
-            intent.setClass(ItemInfo.this,MainActivity.class);
+            intent.setClass(ItemInfo.this,RoleLists.class);
             returnMain(intent);
         }
         return true;
@@ -143,7 +142,7 @@ public class ItemInfo extends AppCompatActivity {
         bun=curR.putInBundle();
         bun.putInt("whichView",0);
         intent.putExtras(bun);
-        //回到MainActivity
+        //回到RoleLists
         setResult(1,intent);
         finish();
         //startActivity(intent);

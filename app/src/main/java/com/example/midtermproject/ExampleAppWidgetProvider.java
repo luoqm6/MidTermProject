@@ -28,7 +28,7 @@ public class ExampleAppWidgetProvider extends AppWidgetProvider {
         RemoteViews updateViews=new RemoteViews(context.getPackageName(),R.layout.example_app_widget_provider);//实例化RemoteView,其对应相应的Widget布局
         ComponentName me=new ComponentName(context,ExampleAppWidgetProvider.class);
         //绑定intent，点击图标能够进入某activity
-        Intent mInent=new Intent(context,MainActivity.class);
+        Intent mInent=new Intent(context,RoleLists.class);
         mInent.addCategory(Intent.CATEGORY_LAUNCHER);
         //设置widget的文字为传入商品相关信息
         updateViews.setTextViewText(R.id.appwidget_text,"当前没有任何信息");

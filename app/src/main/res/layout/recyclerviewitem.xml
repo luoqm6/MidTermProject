@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:orientation="horizontal"
-    android:background="@drawable/touchbackground"
+    android:background="@mipmap/hengxiang1"
     android:clickable="true">
     <TextView
         android:id="@+id/itemCountryInR"
@@ -14,7 +14,7 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:gravity="center"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:lines="1"
         />
