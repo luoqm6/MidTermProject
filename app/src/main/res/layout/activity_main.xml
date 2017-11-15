@@ -14,7 +14,7 @@
 
         <ImageButton
             android:id="@+id/img_people"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="120dp"
             android:scaleType="fitXY"
             android:src="@mipmap/gufengjuanzhou"
@@ -39,7 +39,7 @@
 
         <ImageButton
             android:id="@+id/img_web"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="120dp"
             android:src="@mipmap/gufengjuanzhou"
             android:scaleType="fitXY"
@@ -65,7 +65,7 @@
 
         <ImageButton
             android:id="@+id/img_set"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="120dp"
             android:src="@mipmap/gufengjuanzhou"
             android:scaleType="fitXY"
