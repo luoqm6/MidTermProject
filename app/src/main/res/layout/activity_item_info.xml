@@ -1,167 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    android:id="@+id/scrollViewInfo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:scrollbars="vertical"
+    android:background="@mipmap/liubei"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/entireInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/topInfo"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorGray2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ItemImgInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:src="@mipmap/liubei" />
+
+            <ImageView
+                android:id="@+id/StarInfo"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/empty_star" >
+
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/backBtnInfo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/back" />
+
+            <TextView
+                android:id="@+id/nameInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="15dp"
+                android:text="刘备"
+                android:textColor="@color/colorWhite"
+                android:textSize="25sp" />
+        </RelativeLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/topInfo"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="0dp"
-        android:background="@color/colorGray1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/backBtnInfo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:src="@mipmap/back" />
+        <RelativeLayout
+            android:id="@+id/centerInfo"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="200dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topInfo">
 
-        <ImageView
-            android:id="@+id/ItemImgInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:src="@mipmap/liubei" />
+            <View
+                android:id="@+id/boldBar0"
+                android:layout_width="370dp"
+                android:layout_height="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorGray" />
 
-        <ImageView
-            android:id="@+id/StarInfo"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:src="@mipmap/empty_star" />
+            <ImageView
+                android:id="@+id/recruit"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/boldBar0"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:src="@mipmap/zhaoxiannashi" />
 
-        <TextView
-            android:id="@+id/nameInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="15dp"
-            android:text="刘备"
-            android:textColor="@color/colorWhite"
-            android:textSize="25sp" />
-    </RelativeLayout>
+            <View
+                android:id="@+id/boldBar1"
+                android:layout_width="370dp"
+                android:layout_height="5dp"
+                android:layout_below="@+id/recruit"
+                android:layout_centerHorizontal="true"
+                android:background="@color/colorGray" />
 
-    <View
-        android:id="@+id/boldBar2"
-        android:background="@color/colorGray"
-        android:layout_width="380dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="parent" />
+            <TextView
+                android:id="@+id/periodInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/boldBar1"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:text="生卒：161年－223年6月10日"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp" />
 
-    <RelativeLayout
-        android:id="@+id/centerInfo"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topInfo">
+            <TextView
+                android:id="@+id/sexInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/periodInfo"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="性别：男"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/countryInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sexInfo"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="蜀国英雄"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/hometownInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/countryInfo"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:text="东汉末年幽州涿郡涿县（今河北省涿州市）人"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
 
         <View
-            android:id="@+id/boldBar0"
-            android:layout_width="370dp"
-            android:layout_height="5dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="2dp"
-            android:background="@color/colorGray" />
+            android:id="@+id/boldBar2"
+            android:background="@color/colorGray"
+            android:layout_width="380dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/centerInfo"/>
+        <!--<ListView-->
+            <!--android:id="@+id/ListViewInfo"-->
+            <!--android:orientation="vertical"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/boldBar"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:dividerHeight="1dp"-->
+            <!--android:scrollbars="vertical">-->
+        <!--</ListView>-->
 
-        <ImageView
-            android:id="@+id/recruit"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@+id/boldBar0"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp"
-            android:src="@mipmap/zhaoxiannashi" />
-
-        <View
-            android:id="@+id/boldBar1"
-            android:layout_width="370dp"
-            android:layout_height="5dp"
-            android:layout_below="@+id/recruit"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorGray" />
-
-        <TextView
-            android:id="@+id/periodInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/boldBar1"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:text="生卒：161年－223年6月10日"
-            android:textColor="@color/colorBlack"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/sexInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/periodInfo"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="3dp"
-            android:gravity="center"
-            android:text="性别：男"
-            android:textColor="@color/colorBlack"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/countryInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sexInfo"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="蜀国英雄"
-            android:textColor="@color/colorBlack"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/hometownInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/countryInfo"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="3dp"
-            android:text="东汉末年幽州涿郡涿县（今河北省涿州市）人"
-            android:textColor="@color/colorBlack"
-            android:textSize="15sp" />
-    </RelativeLayout>
-
-
-    <!--<ListView-->
-        <!--android:id="@+id/ListViewInfo"-->
-        <!--android:orientation="vertical"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/boldBar"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:dividerHeight="1dp"-->
-        <!--android:scrollbars="vertical">-->
-    <!--</ListView>-->
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

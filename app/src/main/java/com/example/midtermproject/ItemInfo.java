@@ -8,12 +8,14 @@ package com.example.midtermproject;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.Image;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +61,9 @@ public class ItemInfo extends AppCompatActivity {
         tv.setText(curR.gethometown());
         ImageView iv=(ImageView) findViewById(R.id.ItemImgInfo);
         iv.setImageResource(curR.getimgId());
+        ScrollView sv=(ScrollView) findViewById(R.id.scrollViewInfo);
+        sv.setBackgroundResource(curR.getimgId());
+        sv.getBackground().mutate().setAlpha(50);
         final ImageView favoriteImg=(ImageView) findViewById(R.id.StarInfo);
         if(!curR.getfavorite()){
             favoriteImg.setImageResource(R.mipmap.empty_star);

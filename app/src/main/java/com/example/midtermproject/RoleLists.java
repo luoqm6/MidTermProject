@@ -3,11 +3,8 @@ package com.example.midtermproject;
 /*
  * Created by qingming on 2017/11/13.
  */
-import android.app.ActionBar;
-import android.appwidget.AppWidgetManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,8 +14,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -38,16 +33,30 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
 
 public class RoleLists extends AppCompatActivity {
-    /*所有的商品信息*/
-    final String []name={"刘备 字玄德","曹操 字孟德","孙权 字仲谋","关羽 字云长","张飞 字益德","诸葛亮 字孔明","周瑜 字公瑾",
-            "司马懿 字仲达","张辽 字文远","甘宁 字兴霸"};
+    /*所有的人物信息*/
+    final String []name={"刘备","曹操",
+            "孙权","关羽",
+            "张飞","诸葛亮",
+            "周瑜","司马懿",
+            "张辽","甘宁"};
+    final String []nickname={"字玄德","字孟德",
+            "字仲谋","字云长",
+            "字益德","字孔明",
+            "字公瑾","字仲达",
+            "字文远","字兴霸"};
     final String []country={"蜀","魏","吴","蜀","蜀","蜀","吴","魏","魏","吴"};
     final String []period={"161年－223年6月10日","155年－220年3月15日",
             "182年－252年5月21日","？－220年",
-            "？－221年","181年-234年10月8日","175年-210年",
-            "179年—251年9月7日","169年－222年","？—220年"};
+            "？－221年","181年-234年10月8日",
+            "175年-210年","179年—251年9月7日",
+            "169年－222年","？—220年"};
     final String []sex={"男","男","男","男","男","男","男","男","男","男"};
     final String []hometown={"幽州涿郡涿县（今河北省涿州市）人", "沛国谯县（今安徽亳州）人",
+            "吴郡富春（今浙江杭州富阳区）人", "河东郡解县（今山西运城）人",
+            "幽州涿郡（今河北省保定市涿州市）人", "徐州琅琊阳都（今山东临沂市沂南县）人",
+            "庐江舒（今合肥庐江舒县）人", "河内郡温县孝敬里（今河南省焦作市温县）人",
+            "雁门马邑（今山西朔州）人", "巴郡临江（今重庆忠县）人"};
+    final String []intro={"幽州涿郡涿县（今河北省涿州市）人", "沛国谯县（今安徽亳州）人",
             "吴郡富春（今浙江杭州富阳区）人", "河东郡解县（今山西运城）人",
             "幽州涿郡（今河北省保定市涿州市）人", "徐州琅琊阳都（今山东临沂市沂南县）人",
             "庐江舒（今合肥庐江舒县）人", "河内郡温县孝敬里（今河南省焦作市温县）人",
@@ -80,14 +89,14 @@ public class RoleLists extends AppCompatActivity {
         setContentView(R.layout.rolelists);
 
 
-//        //商品列表的初始化
-//        //final List<Map<String,Object>> listItems1 = new ArrayList<>();
-//        for(int i=0;i<name.length;i++){
-//            Map<String,Role> tmp = new LinkedHashMap<>();
-//            Role tmpR = new Role(country[i],name[i],period[i],sex[i],hometown[i],imgId[i],false);
-//            tmp.put("Role",tmpR);
-//            listItems1.add(tmp);
-//        }
+        //商品列表的初始化
+        //final List<Map<String,Object>> listItems1 = new ArrayList<>();
+        for(int i=0;i<name.length;i++){
+            Map<String,Role> tmp = new LinkedHashMap<>();
+            Role tmpR = new Role(country[i],name[i],nickname[i],period[i],sex[i],hometown[i],hometown[i],imgId[i],false);
+            tmp.put("Role",tmpR);
+            listItems1.add(tmp);
+        }
 
 
 
@@ -180,11 +189,6 @@ public class RoleLists extends AppCompatActivity {
 
 
         //ListView实现购物车清单begin/////////////////////////////
-//        //初始化向购物车列表加入表头
-//        Map<String,Role> tmp = new LinkedHashMap<>();
-//        Role tmpR=new Role("*","我方麾下英雄","价格","价格","价格",0,false);
-//        tmp.put("Role",tmpR);
-//        listItems2.add(tmp);
 
 
         final ListView listview = (ListView) findViewById(R.id.ListView);
