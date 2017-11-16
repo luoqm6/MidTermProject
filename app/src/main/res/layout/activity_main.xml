@@ -11,12 +11,13 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <ImageButton
+            android:clickable="true"
             android:id="@+id/img_people"
             android:layout_width="300dp"
             android:layout_height="120dp"
             android:scaleType="fitXY"
+            android:background="@drawable/buttonclickinmain"
             android:src="@mipmap/gufengjuanzhou"
             app:layout_constraintBottom_toTopOf="@+id/img_web"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -31,18 +32,18 @@
             app:layout_constraintLeft_toLeftOf="@+id/img_people"
             app:layout_constraintRight_toRightOf="@+id/img_people"
             android:text="人物列表"
-            android:textColor="#00FF00"
+            android:textColor="@color/colorBlack1"
             android:textSize="30sp"
             android:textScaleX="1.2"
             />
-
-
         <ImageButton
+            android:clickable="true"
             android:id="@+id/img_web"
             android:layout_width="300dp"
             android:layout_height="120dp"
             android:src="@mipmap/gufengjuanzhou"
             android:scaleType="fitXY"
+            android:background="#00000000"
             app:layout_constraintTop_toBottomOf="@+id/img_people"
             app:layout_constraintBottom_toTopOf="@+id/img_set"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -57,18 +58,19 @@
             app:layout_constraintLeft_toLeftOf="@+id/img_web"
             app:layout_constraintRight_toRightOf="@+id/img_web"
             android:autoLink="web"
-            android:textColor="#00FF00"
+            android:textColor="#@color/colorBlack1"
             android:text="联网词典"
             android:textSize="30sp"
             android:textScaleX="1.2"
             />
-
         <ImageButton
+            android:clickable="true"
             android:id="@+id/img_set"
             android:layout_width="300dp"
             android:layout_height="120dp"
             android:src="@mipmap/gufengjuanzhou"
             android:scaleType="fitXY"
+            android:background="#00000000"
             app:layout_constraintTop_toBottomOf="@+id/img_web"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -84,12 +86,9 @@
             app:layout_constraintLeft_toLeftOf="@+id/img_set"
             app:layout_constraintRight_toRightOf="@+id/img_set"
             android:text="词典设置"
-            android:textColor="#00FF00"
+            android:textColor="@color/colorBlack1"
             android:textSize="30sp"
             android:textScaleX="1.2"
             />
-
     </android.support.constraint.ConstraintLayout>
-
-
 </android.support.design.widget.CoordinatorLayout>
