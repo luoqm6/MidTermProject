@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ImageButton imageButton1 = (ImageButton) findViewById(R.id.img_people);
+        imageButton1.setAlpha(95);
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ImageButton imageButton2 = (ImageButton) findViewById(R.id.img_web);
+        imageButton2.setAlpha(95);
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 .create();
 
         ImageView imageButton3 = (ImageView) findViewById(R.id.img_set);
+        imageButton3.setAlpha(95);
         imageButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

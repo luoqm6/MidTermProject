@@ -108,17 +108,17 @@ public class RoleLists extends AppCompatActivity {
             R.mipmap.caiwenji,R.mipmap.diaochan
     };
 
-    /*为了回调函数使用这些变量向购物车列表添加商品，声明放在外面*/
+    /*声明放在外面*/
     private List<Map<String,Role>> listItems1 = new ArrayList<>();
     private List<Map<String,Role>> listItems2 = new ArrayList<>();
     private List<Map<String,Object>> simpleListItems2 = Role.getSimpleList(listItems2);
     Map<String,Role> s;
     SimpleAdapter simpleAdapter;
 
-    //这两个声明放在onCreate外面不能初始化byid！！！！！！！！！！！！！！！！！！！！！！！！！！
+    //切换界面的一些变量两个浮动按钮声明
     private FloatingActionButton fab1 ;
     private FloatingActionButton fab2 ;
-    //这两个声明放在onCreate外面不能初始化byid！！！！！！！！！！！！！！！！！！！！！！！！！！
+    private int whichView;//记录当前在哪一个界面，0为英雄列表，1为麾下
 
     //广播使用的filter
     String STATICACTION="com.example.midtermproject.STATICACTION";
@@ -140,6 +140,8 @@ public class RoleLists extends AppCompatActivity {
         }
 
 
+
+
         //eventbus的注册
         EventBus.getDefault().register(this);
 
@@ -148,6 +150,7 @@ public class RoleLists extends AppCompatActivity {
         //两个右下角按钮的初始化以及将进入页面初始化为商品列表
         fab1 = (FloatingActionButton) findViewById(R.id.fabSL1);
         fab2 = (FloatingActionButton) findViewById(R.id.fabSL2);
+        whichView = 0;
         changeToRecyclerView();
 
 
@@ -159,12 +162,14 @@ public class RoleLists extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 changeToListView();
+                whichView=1;
             }
         });
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 changeToRecyclerView();
+                whichView=0;
             }
         });
 
@@ -285,31 +290,80 @@ public class RoleLists extends AppCompatActivity {
         searchView.setIconifiedByDefault(true);
         searchView.setQueryHint("请输入搜索内容");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            List<Map<String,Role>> listtmp1=listItems1;
-            List<Map<String,Role>> listtmp2=listItems2;
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //TODO onQueryTextSubmit
                 Toast.makeText(RoleLists.this, "cdsjcgsjgc", Toast.LENGTH_SHORT).show();
+                onQueryTextAct(query);
                 return false;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
+                onQueryTextAct(newText);
+                return false;
+            }
+            public void onQueryTextAct(String newText){
+                final List<Map<String,Role>> searchlistItems=new ArrayList<>();
                 //TODO onQueryTextChange
                 if(TextUtils.isEmpty(newText)){
-                    listItems1.clear();
-                    listItems2.clear();
-                    listItems1.addAll(listtmp1);
-                    listItems2.addAll(listtmp2);
+                    if(whichView==0){
+                        changeToRecyclerView();
+                    }
+                    else{
+                        changeToListView();
+                    }
                 }
-                else{
-                    listItems1.clear();
-                    listItems2.clear();
-                }
-                simpleListItems2 = Role.getSimpleList(listItems2);
-                recycleAdapter.notifyDataSetChanged();
-                simpleAdapter.notifyDataSetChanged();
-                return false;
+                else{//!TextUtils.isEmpty(newText)
+                    if(whichView==0){
+                        for(int i=0;i<listItems1.size();i++){
+                            String nameText=listItems1.get(i).get("Role").getname();
+                            if(nameText.indexOf(newText)==-1){
+
+                            }
+                            else{
+                                searchlistItems.add(listItems1.get(i));
+                            }
+                        }
+                    }
+                    else{//whichView==1
+                        for(int i=0;i<listItems2.size();i++){
+                            String nameText=listItems2.get(i).get("Role").getname();
+                            if(nameText.indexOf(newText)==-1){
+
+                            }
+                            else{
+                                searchlistItems.add(listItems2.get(i));
+                            }
+                        }
+                    }//whichView==1
+                    ListView SearchListView = (ListView) findViewById(R.id.SearchListView);
+                    List<Map<String,Object>>simpleListtmp = Role.getSimpleList(searchlistItems);
+                    SimpleAdapter simpleAdapterTmp = null;
+                    if(whichView==0){
+
+                    }
+                    else {
+
+                    }
+                    simpleAdapterTmp = new SimpleAdapter(
+                            RoleLists.this,simpleListtmp,R.layout.listviewitem,
+                            new String[]{"country","name"},new int []{R.id.itemCountryInL,R.id.itemNameInL});
+                    SearchListView.setAdapter(simpleAdapterTmp);
+                    SearchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //if(position==0) return ;
+                            s=searchlistItems.get(position);
+                            Role tmpR=searchlistItems.get(position).get("Role");
+                            Bundle bundle = tmpR.putInBundle();
+                            Intent intent=new Intent();
+                            intent.putExtras(bundle);
+                            intent.setClass(RoleLists.this,ItemInfo.class);
+                            startActivityForResult(intent,1);
+                        }
+                    });
+                    changeToSearchListView();
+                }//!TextUtils.isEmpty(newText)
             }
         });
         //搜索框实现////////////////////////////////////////////////
@@ -324,9 +378,11 @@ public class RoleLists extends AppCompatActivity {
                 if(bundle!=null){
                     if(bundle.getInt("whichView")==0){
                         changeToRecyclerView();
+                        whichView=0;
                     }
                     else{
                         changeToListView();
+                        whichView=1;
                     }
                 }
             }
@@ -399,6 +455,8 @@ public class RoleLists extends AppCompatActivity {
         reLayout.setVisibility(View.VISIBLE);
         ListView liLayout =(ListView) findViewById(R.id.ListView);
         liLayout.setVisibility(View.GONE);
+        ListView sliLayout =(ListView) findViewById(R.id.SearchListView);
+        sliLayout.setVisibility(View.GONE);
         TextView tv1 = (TextView) findViewById(R.id.head1) ;
         tv1.setVisibility(View.VISIBLE);
         TextView tv2 = (TextView) findViewById(R.id.head2) ;
@@ -412,11 +470,29 @@ public class RoleLists extends AppCompatActivity {
         reLayout.setVisibility(View.GONE);
         ListView liLayout =(ListView) findViewById(R.id.ListView);
         liLayout.setVisibility(View.VISIBLE);
+        ListView sliLayout =(ListView) findViewById(R.id.SearchListView);
+        sliLayout.setVisibility(View.GONE);
         TextView tv1 = (TextView) findViewById(R.id.head1) ;
         tv1.setVisibility(View.GONE);
         TextView tv2 = (TextView) findViewById(R.id.head2) ;
         tv2.setVisibility(View.VISIBLE);
         fab1.setVisibility(View.GONE);
         fab2.setVisibility(View.VISIBLE);
+    }
+    public void changeToSearchListView(){
+        RecyclerView reLayout =(RecyclerView) findViewById(R.id.RecyclerView);
+        reLayout.setVisibility(View.GONE);
+        ListView liLayout =(ListView) findViewById(R.id.ListView);
+        liLayout.setVisibility(View.GONE);
+        ListView sliLayout =(ListView) findViewById(R.id.SearchListView);
+        sliLayout.setVisibility(View.VISIBLE);
+    }
+    public void changeBackFromSearchListView(){
+        if(whichView==0){
+            changeToRecyclerView();
+        }
+        else{
+            changeToListView();
+        }
     }
 }

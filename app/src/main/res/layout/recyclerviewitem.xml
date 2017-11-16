@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:orientation="horizontal"
-    android:background="@mipmap/hengxiang1"
+    android:background="@mipmap/gufengjuanzhou"
     android:clickable="true">
     <TextView
         android:id="@+id/itemCountryInR"
