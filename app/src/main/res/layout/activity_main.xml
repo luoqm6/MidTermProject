@@ -58,7 +58,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/img_web"
             app:layout_constraintRight_toRightOf="@+id/img_web"
             android:autoLink="web"
-            android:textColor="#@color/colorBlack1"
+            android:textColor="@color/colorBlack1"
             android:text="联网词典"
             android:textSize="30sp"
             android:textScaleX="1.2"
