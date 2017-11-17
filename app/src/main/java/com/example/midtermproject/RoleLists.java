@@ -6,6 +6,8 @@ package com.example.midtermproject;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -43,9 +45,18 @@ public class RoleLists extends AppCompatActivity {
             "张飞","诸葛亮",
             "周瑜","司马懿",
             "张辽","甘宁",
+
             "大乔","孙尚香",
             "甄姬","小乔",
-            "蔡文姬","貂蝉"
+            "蔡文姬","貂蝉",
+            "黄忠","赵云",
+            "马超","吕布",
+
+            "吕蒙","典韦",
+            "黄月英","孙策",
+            "曹植","刘禅",
+            "孙鲁班","郭女王",
+            "司马昭","华雄"
     };
     final String []nickname={
             "玄德","孟德",
@@ -53,31 +64,62 @@ public class RoleLists extends AppCompatActivity {
             "益德","孔明",
             "公瑾","仲达",
             "文远","兴霸",
+
             "无","无",
             "无","无",
-            "文姬（昭姬）","无"
+            "文姬(昭姬)","无",
+            "汉升(汉叔)","子龙",
+            "孟起","奉先",
+
+            "子明","无",
+            "无","伯符",
+            "子建","公嗣",
+            "大虎","女王",
+            "子上","无"
     };
-    final String []country={"蜀","魏","吴","蜀","蜀","蜀","吴","魏","魏","吴","吴","蜀","魏","吴","魏","其他"};
+    final String []country={"蜀","魏","吴","蜀","蜀","蜀","吴","魏","魏","吴",
+            "吴","蜀","魏","吴","魏","群","蜀","蜀","蜀","群",
+            "吴","魏","蜀","吴","魏","蜀","吴","魏","魏","群"};
     final String []period={
             "161年－223年6月10日","155年－220年3月15日",
             "182年－252年5月21日","？－220年",
             "？－221年","181年-234年10月8日",
             "175年-210年","179年—251年9月7日",
             "169年－222年","？—220年",
+
             "180年-?","？ - ？",
-            "183 - 221","？ - ？",
-            "？ - ？","？ - ？"
+            "183年- 221年","？ - ？",
+            "？ - ？","？ - ？",
+            "？－220年","？－229年",
+            "176年-223年","？－198年",
+
+            "178－219","？－197年",
+            "？ - ？","175－200年",
+            "192年－232年","207年－271年",
+            "？ - ？","184年－235年",
+            "211年－265年","？－191年"
     };
-    final String []sex={"男","男","男","男","男","男","男","男","男","男","女","女","女","女","女","女"};
+    final String []sex={"男","男","男","男","男","男","男","男","男","男",
+            "女","女","女","女","女","女","男","男","男","男",
+            "男","男","女","男","男","男","女","女","男","男"};
     final String []hometown={
             "幽州涿郡涿县（今河北省涿州市）人", "沛国谯县（今安徽亳州）人",
             "吴郡富春（今浙江杭州富阳区）人", "河东郡解县（今山西运城）人",
             "幽州涿郡（今河北省保定市涿州市）人", "徐州琅琊阳都（今山东临沂市沂南县）人",
             "庐江舒（今合肥庐江舒县）人", "河内郡温县孝敬里（今河南省焦作市温县）人",
             "雁门马邑（今山西朔州）人", "巴郡临江（今重庆忠县）人",
+
             "扬州庐江郡皖（安徽安庆市潜山县）","扬州吴郡富春（浙江杭州市富阳）",
             "冀州中山国毋极（河北石家庄市无极县西、滋水北岸）","扬州庐江郡皖（安徽安庆市潜山县）",
-            "东汉陈留郡圉县(今河南开封杞县)人","无法考证"
+            "东汉陈留郡圉县(今河南开封杞县)人","无法考证",
+            "南阳（今河南南阳）人","常山真定（今河北省正定）人",
+            "扶风茂陵人(今陕西兴平)","五原郡九原县人（今内蒙古包头九原区）",
+
+            "汝南富陂人","陈留己吾（今河南商丘市宁陵县己吾城村）人",
+            "荆州沔南白水（今湖北襄阳）人","吴郡富春（今浙江富阳）人",
+            "沛国谯（今安徽省亳州市）人","不详",
+            "吴郡富春人","祖籍安平广宗",
+            "河内温（今河南温县）人","不详"
     };
     final String []intro={
             "刘备，蜀汉的开国皇帝，汉景帝之子中山靖王刘胜的后代。刘备少年孤贫，以贩鞋织草席为生。黄巾起义时，刘备与关羽、张飞桃园结义，成为异姓兄弟，一同剿除黄巾，有功，任安喜县尉，不久辞官；董卓乱政之际，刘备随公孙瓒讨伐董卓，三人在虎牢关战败吕布。后诸侯割据，刘备势力弱小，经常寄人篱下，先后投靠过公孙瓒、曹操、袁绍、刘表等人，几经波折，却仍无自己的地盘。赤壁之战前夕，刘备在荆州三顾茅庐，请诸葛亮出山辅助，在赤壁之战中，联合孙权打败曹操，奠定了三分天下的基础。刘备在诸葛亮的帮助下占领荆州，不久又进兵益州，夺取汉中，建立了横跨荆益两州的政权。后关羽战死，荆州被孙权夺取，刘备大怒，于称帝后伐吴，在夷陵之战中为陆逊用火攻打得大败，不久病逝于白帝城，临终托孤于诸葛亮。",
@@ -90,12 +132,29 @@ public class RoleLists extends AppCompatActivity {
             "早年任文学掾，后任主簿，是曹操帐下谋士之一，但并不出名。襄樊之战时和蒋济劝曹操勿迁都，可割江南封孙权，令其袭杀关羽，事后如他所料。后来司马懿协助曹丕代汉，出谋五路伐蜀，开始崭露头角，在曹丕病逝前成为顾命大臣。曹叡继位后，司马懿主动请命去防御魏国西部，后因蜀汉马谡的反间计一度被废，但面对诸葛亮的北伐强攻，魏国不得不再次启用司马懿，先擒孟达，后败马谡于街亭。司马懿多次败于诸葛亮，于是采用闭门不战的策略防守，直至诸葛亮病逝。后出兵平公孙渊。曹芳继位后，司马懿、曹爽共同辅政。司马懿受曹爽排挤，于是发动政变诛杀曹爽一族，自此掌握魏国大权。司马懿病逝后，魏国政权仍由其儿子把持，多年后导致晋朝代魏的发生。司马懿被后代追封为晋朝皇帝。",
             "面如紫玉，目若朗星。初为吕布部将，数令曹操陷于苦战，武勇亦为关羽所称道。后吕布亡，曹操听刘备、关羽之劝，待张辽以上礼，遂降。以后张辽随军征讨，多有战功，曹操亦待之如亲信。曹操围关羽时张辽成功劝关羽降。赤壁败，张辽亲载曹操脱难，并射伤权将黄盖。后曹操以张辽引李典、乐进守合肥，以御孙权。后孙权果引军入寇，张辽用计分弱其势，自率二千余骑败敌十万，威震逍遥津。黄初五年，随曹丕征江东，为吴将丁奉以箭射其腰，回营后不治身亡，文帝厚葬之。",
             "吴将。初为锦帆贼，后投黄祖，未受重用，转仕吴，并助孙权败黄祖军。与曹军战，甘宁冲锋在先，奋勇杀敌，百骑劫曹营。后救凌统，两人遂结为生死之交。刘备伐吴时甘宁得痢疾，带病出战。后为蛮王沙摩柯以箭射头，坐于大树之下而死，树上群鸦数百，围绕其尸。",
+
             "江东乔国老有二女，大乔和小乔。大乔有沉鱼落雁之资，倾国倾城之容。孙策征讨江东，攻取皖城，娶大乔为妻。自古美女配英雄，伯符大乔堪绝配。曹操赤壁鏖兵，虎视江东，曾有揽二乔娱暮年，还足平生之愿。",
             "演义中为孙尚香。孙尚香之名为日后戏曲所创作出来的。刘备向东吴借荆州不还，鲁肃身负关系；周瑜一为救友，二为国计，于是上书孙权，教使「美人计」，进妹予刘备为夫人，诱其丧志而疏远属下。孙夫人才捷刚猛，有诸兄之风，身边侍婢百余人，皆亲自执刀侍立。不料在诸葛亮的锦囊妙计安排下，假婚成真姻；后来夫人更助刘备返蜀，于路上怒斥追袭的吴将。后刘备入益州，使赵云领留营司马，留守荆州。此时孙权闻知刘备西征，于是遣周善引领舟船以迎孙夫人，而夫人带着后主刘禅回吴，幸得赵云与张飞勒兵截江，方重夺刘禅。彝陵之战，刘备战败，有讹言传入吴中，道刘备已死，孙夫人伤心不已，望西痛哭，投江而死。后人为其立庙，号曰「枭姬庙」。",
             "甄氏初期嫁与袁绍次子袁熙，袁熙带兵出外征战，留下甄氏独身照顾婆婆，袁氏败亡后，曹操之子曹丕见其美艳动人，便纳为己有。黄初年间，魏文帝曹丕新纳的宠妾郭后栽赃甄后，诬陷她埋木偶诅咒文帝。文帝曹丕大怒，将甄后赐死。",
             "庐江皖县桥国老次女，秀美绝伦，貌压群芳，又琴棋书画无所不通周瑜攻取皖城，迎娶小乔为妻。周郎小乔英雄美女、郎才女貌 ，被流传为千古佳话.",
             "东汉大文学家蔡邕的女儿。初嫁于卫仲道，丈夫死去而回到自己家里，后值因匈奴入侵，蔡琰被匈奴左贤王掳走，嫁给匈奴人，并生育了两个孩子。十二年后，曹操统一北方，用重金将蔡琰赎回，并将其嫁给董祀。蔡琰同时擅长文学、音乐、书法。",
-            "舍身报国的可敬女子，她为了挽救天下黎民，为了推翻权臣董卓的荒淫统治，受王允所托，上演了可歌可泣的连环计（连环美人计），周旋于两个男人之间，成功的离间了董卓和吕布，最终吕布将董卓杀死，结束了董卓专权的黑暗时期。"
+            "舍身报国的可敬女子，她为了挽救天下黎民，为了推翻权臣董卓的荒淫统治，受王允所托，上演了可歌可泣的连环计（连环美人计），周旋于两个男人之间，成功的离间了董卓和吕布，最终吕布将董卓杀死，结束了董卓专权的黑暗时期。",
+            "东汉末年名将。本为刘表部下中郎将，后归刘备，并助刘备攻益州刘璋。建安二十四年（219年），黄忠在定军山一战中阵斩曹操部下名将夏侯渊，升任征西将军，刘备称汉中王后改封后将军，赐关内侯。次年，黄忠病逝。景耀三年（260年），追谥刚侯。黄忠在后世多以勇猛的老将形象出现于各类文学艺术作品中，《三国演义》里，刘备称汉中王后将其封为五虎上将之一，而黄忠的名字在中国也逐渐成为了老当益壮的代名词。",
+            "蜀汉名将之一。汉末军阀混战，赵云受本郡推举，率领义从加入白马将军公孙瓒。期间结识了汉室皇亲刘备，但不久之后，赵云因为兄长去世而离开。赵云离开公孙瓒大约七年左右的时间，在邺城与刘备相见，从此追随刘备。 赵云跟随刘备将近三十年，先后参加过博望坡之战、长坂坡之战、江南平定战，独自指挥过入川之战、汉水之战、箕谷之战，都取得了非常好的战果。除了四处征战，赵云还先后以偏将军任桂阳太守，以留营司马留守公安，以翊军将军督江州。 除此，赵云于平定益州时引霍去病故事劝谏刘备将田宅归还百姓，又于关羽张飞被害之后劝谏刘备不要伐吴。赵云死后，刘禅又下令追谥赵云，姜维以“柔贤慈惠曰顺，执事有班曰平，克定祸乱曰平”追谥赵云为顺平侯。",
+            "汉末卫尉马腾之子，东汉末年及蜀汉开国名将，汉末群雄之一。早年随父征战，马腾入京后，马超留驻割据三辅。潼关之战被曹操击败后，又割据陇上诸郡。失败后投靠张鲁，又转投刘备。刘备建立蜀汉后，马超官至骠骑将军、斄乡侯、凉州牧。于章武二年十二月病逝(223年1月)，终年47岁，追谥威侯。",
+            "先后为丁原、董卓的部将，也曾为袁绍效力，后占据徐州，自成一方势力。于建安三年（198年）在下邳被曹操击败并处死。由于《三国演义》及各种民间艺术的演绎，吕布向来是以“三国第一猛将”的形象存在于人们的心目之中。",
+
+
+            "少年时依附姊夫邓当，随孙策为将。以胆气称，累封别部司马。孙权统事后，渐受重用，从破黄祖作先登，封横野中郎将。从围曹仁于南郡，并于濡须数御曹军，屡献奇计，累功拜庐江太守。",
+            "东汉末年曹操部将。相貌魁梧，膂力过人。公元197年（建安二年），张绣背叛曹操，典韦为保护曹操而独挡叛军，击杀多人，但最终因寡不敌众而战死。典韦是陈留己吾人。他形貌魁梧，膂力过人，有大志气节，性格任侠。",
+            "沔阳名士黄承彦之女，诸葛亮之妻，诸葛瞻之母。本名于史无载，“月英”是她在民间传说中的名字。黄承彦以黄月英有才，向诸葛亮推荐，请求配婚，诸葛亮答应后遂与黄月英结为夫妻。相传黄月英黄头发黑皮肤，但知识广博。",
+            "孙坚长子，孙权长兄。东汉末年割据江东一带的军阀，汉末群雄之一，三国时期吴国的奠基者之一。三国演义中绰号“小霸王”。为继承父亲孙坚的遗业而屈事袁术，后脱离袁术，统一江东。",
+            "出生于东阳武，是曹操与武宣卞皇后所生第三子，生前曾为陈王，去世后谥号“思”，因此又称陈思王。 曹植是三国时期曹魏著名文学家，建安文学的代表人物。其代表作有《洛神赋》、《白马篇》.",
+            "刘备之子，母亲是昭烈皇后甘氏，三国时期蜀汉第二位皇帝。幼年时多遭难，幸得大将赵云两次相救，刘备定益州后入蜀，蜀汉建立后被立为太子。于公元223年继位为皇帝，在位四十年。期间拜诸葛亮为相父。",
+            "东吴大帝孙权长女，生母步夫人，后母潘皇后，全怿、全吴生母，全绪、全寄继母，朱氏姨母。初嫁周瑜的儿子周循，周循死后，改嫁全琮，因此孙鲁班又称全公主。",
+            "曹魏王朝第一位皇后，祖籍安平广宗。有智数，性俭约，魏文帝曹丕的夫人，卢弼《三国志集解》中称其“之足以制魏文可知”。郭氏少年时父母双亡，丧乱流离，29岁时被比她小3岁的曹丕纳为妾，深得宠遇，然而始终没有生下子女。后来曹丕即位魏王，册封郭氏为魏王夫人。曹魏建立，拜为贵嫔，位次皇后。黄初三年九月初九，曹丕在许昌立她为后。郭女王做了四年的皇后，后曹丕病笃驾崩，由太子曹叡继位，郭女王成为皇太后。八年后逝世，谥曰“文德皇后”，葬于魏文帝首阳陵西侧。",
+            "三国时期曹魏权臣，西晋王朝的奠基人之一。他是宣帝司马懿与张春华的次子，司马师的弟弟，西晋开国皇帝司马炎的父亲。早年随父抗蜀，多有战功。景初二年，封新城乡侯。正始初，迁洛阳典农中郎将。曹髦时，继兄司马师为大将军。专揽国政，走向代魏。甘露五年，魏帝曹髦死后，立曹奂为帝。景元四年，分兵遣钟会、邓艾、诸葛绪三路伐蜀，灭之。自称晋公。咸熙元年三月丁丑加为晋王。咸熙二年，薨。昭死数月，子司马炎代魏称帝。建晋朝。追尊司马昭为文帝，庙号太祖。",
+            "中国东汉末年董卓部下的武将，为董卓帐下都督。公元191年，关东军阀联合讨伐董卓，时任长沙太守的孙坚大破董卓军，华雄在此战中被孙坚一军所杀。明·罗贯中所著历史小说《三国演义》中则对这段历史作了改动，描写华雄英勇无敌，后被刘备义弟关羽所杀，这段被称为“温酒斩华雄”的故事情节也流传于后世。"
     };
     final int []imgId={
             R.mipmap.liubei,R.mipmap.caocao,
@@ -103,9 +162,18 @@ public class RoleLists extends AppCompatActivity {
             R.mipmap.zhangfei,R.mipmap.zhugeliang,
             R.mipmap.zhouyu,R.mipmap.simayi,
             R.mipmap.zhangliao,R.mipmap.ganning,
+
             R.mipmap.daqiao,R.mipmap.sunshangxiang,
             R.mipmap.zhenji,R.mipmap.xiaoqiao,
-            R.mipmap.caiwenji,R.mipmap.diaochan
+            R.mipmap.caiwenji,R.mipmap.diaochan,
+            R.mipmap.huangzhong,R.mipmap.zhaoyun,
+            R.mipmap.machao,R.mipmap.lvbu,
+
+            R.mipmap.lvmeng,R.mipmap.dianwei,
+            R.mipmap.huangyueying,R.mipmap.sunce,
+            R.mipmap.caozhi,R.mipmap.liushan,
+            R.mipmap.sunluban,R.mipmap.guonvwang,
+            R.mipmap.simazhao,R.mipmap.huaxiong
     };
 
     /*声明放在外面*/
@@ -124,6 +192,7 @@ public class RoleLists extends AppCompatActivity {
     String STATICACTION="com.example.midtermproject.STATICACTION";
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,14 +201,17 @@ public class RoleLists extends AppCompatActivity {
 
         //商品列表的初始化
         //final List<Map<String,Object>> listItems1 = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            Map<String,Role> tmp = new LinkedHashMap<>();
-            Role tmpR = new Role(country[i],name[i],nickname[i],period[i],sex[i],hometown[i],intro[i],imgId[i],false);
-            tmp.put("Role",tmpR);
-            listItems1.add(tmp);
-        }
+//        for(int i=0;i<10;i++){
+//            Map<String,Role> tmp = new LinkedHashMap<>();
+//            Role tmpR = new Role(country[i],name[i],nickname[i],period[i],sex[i],hometown[i],intro[i],imgId[i],false);
+//            tmp.put("Role",tmpR);
+//            listItems1.add(tmp);
+//        }
+        initlistItems1(0,30);
 
 
+        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.rolelists) ;
+        constraintLayout.getBackground().mutate().setAlpha(60);
 
 
         //eventbus的注册
@@ -317,7 +389,8 @@ public class RoleLists extends AppCompatActivity {
                     if(whichView==0){
                         for(int i=0;i<listItems1.size();i++){
                             String nameText=listItems1.get(i).get("Role").getname();
-                            if(nameText.indexOf(newText)==-1){
+                            String countryText=listItems1.get(i).get("Role").getcountry();
+                            if(nameText.indexOf(newText)==-1&&countryText.indexOf(newText)==-1){
 
                             }
                             else{
@@ -328,7 +401,8 @@ public class RoleLists extends AppCompatActivity {
                     else{//whichView==1
                         for(int i=0;i<listItems2.size();i++){
                             String nameText=listItems2.get(i).get("Role").getname();
-                            if(nameText.indexOf(newText)==-1){
+                            String countryText=listItems2.get(i).get("Role").getcountry();
+                            if(nameText.indexOf(newText)==-1&&countryText.indexOf(newText)==-1){
 
                             }
                             else{
@@ -338,14 +412,8 @@ public class RoleLists extends AppCompatActivity {
                     }//whichView==1
                     ListView SearchListView = (ListView) findViewById(R.id.SearchListView);
                     List<Map<String,Object>>simpleListtmp = Role.getSimpleList(searchlistItems);
-                    SimpleAdapter simpleAdapterTmp = null;
-                    if(whichView==0){
 
-                    }
-                    else {
-
-                    }
-                    simpleAdapterTmp = new SimpleAdapter(
+                    final SimpleAdapter simpleAdapterTmp = new SimpleAdapter(
                             RoleLists.this,simpleListtmp,R.layout.listviewitem,
                             new String[]{"country","name"},new int []{R.id.itemCountryInL,R.id.itemNameInL});
                     SearchListView.setAdapter(simpleAdapterTmp);
@@ -353,13 +421,41 @@ public class RoleLists extends AppCompatActivity {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             //if(position==0) return ;
-                            s=searchlistItems.get(position);
                             Role tmpR=searchlistItems.get(position).get("Role");
                             Bundle bundle = tmpR.putInBundle();
                             Intent intent=new Intent();
                             intent.putExtras(bundle);
                             intent.setClass(RoleLists.this,ItemInfo.class);
                             startActivityForResult(intent,1);
+                        }
+                    });
+                    SearchListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                            Role tmpR=searchlistItems.get(position).get("Role");
+                            String name=tmpR.getname();
+                            searchlistItems.remove(position);
+                            List<Map<String,Object>>simpleListtmp = Role.getSimpleList(searchlistItems);
+                            simpleListtmp.remove(position);
+                            simpleAdapterTmp.notifyDataSetChanged();
+//                            if(whichView==0){
+//                                int tmpposition=checkStringInList(name,listItems1);
+//                                if(tmpposition!=-1){
+//                                    listItems1.remove(tmpposition);
+//                                    recycleAdapter.notifyItemRemoved(tmpposition);
+//                                    recycleAdapter.notifyItemChanged(tmpposition);
+//                                    recycleAdapter.notifyDataSetChanged();
+//                                }
+//                            }
+//                            else {
+//                                int tmpposition=checkStringInList(name,listItems2);
+//                                if(tmpposition!=-1){
+//                                    listItems2.remove(tmpposition);
+//                                    simpleListItems2.remove(tmpposition);
+//                                    simpleAdapter.notifyDataSetChanged();
+//                                }
+//                            }
+                            return true;
                         }
                     });
                     changeToSearchListView();
@@ -437,10 +533,13 @@ public class RoleLists extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    public void initlistItems1(){
+    //向初始的人物列表中加入从left到right-1 的所有人物
+    public void initlistItems1(int left,int right){
         //商品列表的初始化
         //final List<Map<String,Object>> listItems1 = new ArrayList<>();
-        for(int i=0;i<10;i++){
+        if(left<0||left>=30) left=0;
+        if(right>30)right=30;
+        for(int i=left;i<right;i++){
             Map<String,Role> tmp = new LinkedHashMap<>();
             Role tmpR = new Role(country[i],name[i],nickname[i],period[i],sex[i],hometown[i],intro[i],imgId[i],false);
             tmp.put("Role",tmpR);
@@ -448,8 +547,7 @@ public class RoleLists extends AppCompatActivity {
         }
     }
 
-
-
+    //切换当前的界面到RecyclerView的界面
     public void changeToRecyclerView(){
         RecyclerView reLayout =(RecyclerView) findViewById(R.id.RecyclerView);
         reLayout.setVisibility(View.VISIBLE);
@@ -464,7 +562,7 @@ public class RoleLists extends AppCompatActivity {
         fab1.setVisibility(View.VISIBLE);
         fab2.setVisibility(View.GONE);
     }
-
+    //切换当前的界面到ListView的界面
     public void changeToListView(){
         RecyclerView reLayout =(RecyclerView) findViewById(R.id.RecyclerView);
         reLayout.setVisibility(View.GONE);
@@ -479,6 +577,7 @@ public class RoleLists extends AppCompatActivity {
         fab1.setVisibility(View.GONE);
         fab2.setVisibility(View.VISIBLE);
     }
+    //更改当前的list界面到查询的SearchListView的界面
     public void changeToSearchListView(){
         RecyclerView reLayout =(RecyclerView) findViewById(R.id.RecyclerView);
         reLayout.setVisibility(View.GONE);
@@ -487,12 +586,19 @@ public class RoleLists extends AppCompatActivity {
         ListView sliLayout =(ListView) findViewById(R.id.SearchListView);
         sliLayout.setVisibility(View.VISIBLE);
     }
-    public void changeBackFromSearchListView(){
-        if(whichView==0){
-            changeToRecyclerView();
+    //查找list是否包含名字或国家与s有关的人物并返回位置
+    public int checkStringInList(String s,List<Map<String,Role>> list){
+        for(int i=0;i<list.size();i++){
+            String nameText=list.get(i).get("Role").getname();
+            String countryText=list.get(i).get("Role").getcountry();
+            if(nameText.indexOf(s)==-1&&countryText.indexOf(s)==-1){
+
+            }
+            else{
+                return i;
+            }
         }
-        else{
-            changeToListView();
-        }
+        return -1;
     }
+
 }

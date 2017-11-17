@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ImageButton imageButton1 = (ImageButton) findViewById(R.id.img_people);
-        imageButton1.setAlpha(95);
+        imageButton1.setAlpha(98);
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ImageButton imageButton2 = (ImageButton) findViewById(R.id.img_web);
-        imageButton2.setAlpha(95);
+        imageButton2.setAlpha(98);
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        final String mitems[] = {"背景音乐", "音效"};
+        final String mitems[] = {"点击 开/关 背景音乐", "点击 开/关 音效"};
         final boolean set_act[] = {false, false};//设置两个bool变量控制音乐、音效
         alertDialog.setTitle("词典设置")
                 .setItems(mitems, new DialogInterface.OnClickListener() {
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 .create();
 
         ImageView imageButton3 = (ImageView) findViewById(R.id.img_set);
-        imageButton3.setAlpha(95);
+        imageButton3.setAlpha(98);
         imageButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
