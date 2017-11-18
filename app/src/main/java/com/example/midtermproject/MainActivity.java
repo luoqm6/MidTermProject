@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 .setItems(mitems, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (mitems[i].equals("背景音乐")) {
+                        if (mitems[i].equals("点击 开/关 背景音乐")) {
                             if (set_act[i] == false) {
                                 set_act[i] = true;
                                 Toast.makeText(getApplicationContext(), "开启背景音乐", Toast.LENGTH_SHORT).show();
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, MusicServer.class);
                                 stopService(intent);
                             }
-                        } else if (mitems[i].equals("音效")) {
+                        } else if (mitems[i].equals("点击 开/关 音效")) {
                             if (set_act[i] == false) {
                                 set_act[i] = true;
                                 Toast.makeText(getApplicationContext(), "开启音效", Toast.LENGTH_SHORT).show();

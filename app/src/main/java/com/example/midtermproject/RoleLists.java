@@ -403,7 +403,6 @@ public class RoleLists extends AppCompatActivity {
                             String nameText=listItems2.get(i).get("Role").getname();
                             String countryText=listItems2.get(i).get("Role").getcountry();
                             if(nameText.indexOf(newText)==-1&&countryText.indexOf(newText)==-1){
-
                             }
                             else{
                                 searchlistItems.add(listItems2.get(i));
@@ -411,7 +410,7 @@ public class RoleLists extends AppCompatActivity {
                         }
                     }//whichView==1
                     ListView SearchListView = (ListView) findViewById(R.id.SearchListView);
-                    List<Map<String,Object>>simpleListtmp = Role.getSimpleList(searchlistItems);
+                    final List<Map<String,Object>>simpleListtmp = Role.getSimpleList(searchlistItems);
 
                     final SimpleAdapter simpleAdapterTmp = new SimpleAdapter(
                             RoleLists.this,simpleListtmp,R.layout.listviewitem,
@@ -435,26 +434,26 @@ public class RoleLists extends AppCompatActivity {
                             Role tmpR=searchlistItems.get(position).get("Role");
                             String name=tmpR.getname();
                             searchlistItems.remove(position);
-                            List<Map<String,Object>>simpleListtmp = Role.getSimpleList(searchlistItems);
-                            simpleListtmp.remove(position);
+                            simpleListtmp.clear();
+                            simpleListtmp.addAll(Role.getSimpleList(searchlistItems));
                             simpleAdapterTmp.notifyDataSetChanged();
-//                            if(whichView==0){
-//                                int tmpposition=checkStringInList(name,listItems1);
-//                                if(tmpposition!=-1){
-//                                    listItems1.remove(tmpposition);
-//                                    recycleAdapter.notifyItemRemoved(tmpposition);
-//                                    recycleAdapter.notifyItemChanged(tmpposition);
-//                                    recycleAdapter.notifyDataSetChanged();
-//                                }
-//                            }
-//                            else {
-//                                int tmpposition=checkStringInList(name,listItems2);
-//                                if(tmpposition!=-1){
-//                                    listItems2.remove(tmpposition);
-//                                    simpleListItems2.remove(tmpposition);
-//                                    simpleAdapter.notifyDataSetChanged();
-//                                }
-//                            }
+                            if(whichView==0){
+                                int tmpposition=checkStringInList(name,listItems1);
+                                if(tmpposition!=-1){
+                                    listItems1.remove(tmpposition);
+                                    recycleAdapter.notifyItemRemoved(tmpposition);
+                                    recycleAdapter.notifyItemChanged(tmpposition);
+                                    recycleAdapter.notifyDataSetChanged();
+                                }
+                            }
+                            else {
+                                int tmpposition=checkStringInList(name,listItems2);
+                                if(tmpposition!=-1){
+                                    listItems2.remove(tmpposition);
+                                    simpleListItems2.remove(tmpposition);
+                                    simpleAdapter.notifyDataSetChanged();
+                                }
+                            }
                             return true;
                         }
                     });
