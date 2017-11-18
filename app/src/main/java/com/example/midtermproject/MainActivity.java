@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         final String mitems[] = {"点击 开/关 背景音乐", "点击 开/关 音效"};
         final boolean set_act[] = {false, false};//设置两个bool变量控制音乐、音效
