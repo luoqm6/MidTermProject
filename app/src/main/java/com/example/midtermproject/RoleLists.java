@@ -18,6 +18,7 @@ import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -244,7 +245,30 @@ public class RoleLists extends AppCompatActivity {
                 whichView=0;
             }
         });
-
+        /*左上角返回按键返回主界面，若加入购物车则带回数据*/
+        ImageView backBtnInList=(ImageView) findViewById(R.id.backBtnInList);
+        backBtnInList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setClass(RoleLists.this,MainActivity.class);
+                //回到RoleLists
+                setResult(1,intent);
+                finish();
+            }
+        });
+        /*右上角返回按键返回主表，若加入购物车则带回数据*/
+        ImageView addBtnInList=(ImageView) findViewById(R.id.addBtnInList);
+        addBtnInList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
+                intent.setClass(RoleLists.this,MainActivity.class);
+                //回到RoleLists
+                setResult(1,intent);
+                finish();
+            }
+        });
 
         //RecyclerView实现物品清单begin/////////////////
         final RecyclerView mRecyclerView;

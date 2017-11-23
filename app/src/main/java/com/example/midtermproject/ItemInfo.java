@@ -95,7 +95,7 @@ public class ItemInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent();
-                intent.setClass(ItemInfo.this,MainActivity.class);
+                intent.setClass(ItemInfo.this,RoleLists.class);
                 returnMain(intent);
             }
         });
