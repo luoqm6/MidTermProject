@@ -56,6 +56,21 @@
                 android:src="@mipmap/back" />
 
             <TextView
+                android:id="@+id/editInfo"
+                android:background="@drawable/roundbutton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="改"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
+
+            <TextView
             android:id="@+id/nameInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
