@@ -262,6 +262,8 @@ public class Game extends AppCompatActivity {
         buttonQuit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pool.release();
+                pool=null;
                 Intent intent=new Intent();
                 intent.setClass(Game.this,MainActivity.class);
                 //回到RoleLists

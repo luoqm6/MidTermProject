@@ -190,6 +190,7 @@ public class RoleLists extends AppCompatActivity {
     private FloatingActionButton fab1 ;
     private FloatingActionButton fab2 ;
     private int whichView;//记录当前在哪一个界面，0为英雄列表，1为麾下
+    private boolean delecteInSearchList = true;//是否删除查询表中的角色
 
     //广播使用的filter
     String STATICACTION="com.example.midtermproject.STATICACTION";
@@ -278,12 +279,12 @@ public class RoleLists extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton("取消",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(getApplication(), "你点击了取消", Toast.LENGTH_SHORT).show();
-                            }
-                        })
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(getApplication(), "你点击了取消", Toast.LENGTH_SHORT).show();
+                        }
+                    })
                 .create();
 
         /*右上角加号提示增加方法*/
@@ -328,7 +329,7 @@ public class RoleLists extends AppCompatActivity {
             }
         });
 
-        //RecyclerView实现物品清单begin/////////////////
+        //RecyclerView实现人物清单begin/////////////////
         final RecyclerView mRecyclerView;
         //final CommonAdapter recycleAdapter;
         final RecyclerView.LayoutManager mLayoutManager;
@@ -382,11 +383,11 @@ public class RoleLists extends AppCompatActivity {
         mRecyclerView.setAdapter(animationAdapter);
         mRecyclerView.setItemAnimator(new OvershootInLeftAnimator());
         //mRecyclerView.setAdapter(recycleAdapter);/////
-        //RecyclerView实现物品清单end/////////////////////////////
+        //RecyclerView实现人物清单end/////////////////////////////
 
 
 
-        //ListView实现购物车清单begin/////////////////////////////
+        //ListView麾下列表begin/////////////////////////////
 
 
         final ListView listview = (ListView) findViewById(R.id.ListView);
@@ -418,7 +419,7 @@ public class RoleLists extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, final View view, final int position, long id) {
                 //if(position==0) return true;
                 s=listItems2.get(position);
-                //购物车界面长按删除提示信息
+                //麾下界面长按删除提示信息
                 alterDialog.setTitle("逐出英雄").setMessage("从麾下逐出"+s.get("Role").getname()+"?").setNegativeButton("取消",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -441,7 +442,7 @@ public class RoleLists extends AppCompatActivity {
                 return true;
             }
         });
-        //ListView实现购物车清单end//////////////////////////////////
+        //ListView麾下列表end//////////////////////////////////
 
         //搜索框实现////////////////////////////////////////////////
         SearchView searchView=(SearchView) findViewById(R.id.svinrolelists);
@@ -457,9 +458,6 @@ public class RoleLists extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 onQueryTextAct(newText);
-                return false;
-            }
-            public void onQueryTextAct(String newText){
                 final List<Map<String,Role>> searchlistItems=new ArrayList<>();
                 //TODO onQueryTextChange
                 if(TextUtils.isEmpty(newText)){
@@ -476,7 +474,6 @@ public class RoleLists extends AppCompatActivity {
                             String nameText=listItems1.get(i).get("Role").getname();
                             String countryText=listItems1.get(i).get("Role").getcountry();
                             if(nameText.indexOf(newText)==-1&&countryText.indexOf(newText)==-1){
-
                             }
                             else{
                                 searchlistItems.add(listItems1.get(i));
@@ -515,58 +512,49 @@ public class RoleLists extends AppCompatActivity {
                             startActivityForResult(intent,1);
                         }
                     });
+                    //购物车界面长按删除提示信息
                     SearchListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                         @Override
                         public boolean onItemLongClick(AdapterView<?> parent,final View view,final int position, long id) {
                             Role tmpR=searchlistItems.get(position).get("Role");
                             final String name=tmpR.getname();
+                            if(delecteInSearchList == true){
+                                if(whichView==0){
+                                    int tmpposition=checkStringInList(name,listItems1);
+                                    if(tmpposition!=-1){
+                                        listItems1.remove(tmpposition);
+                                        recycleAdapter.notifyItemRemoved(tmpposition);
+                                        recycleAdapter.notifyItemChanged(tmpposition);
+                                        recycleAdapter.notifyDataSetChanged();
 
-                            //购物车界面长按删除提示信息
-                            alterDialog.setTitle("逐出英雄").setMessage("从麾下逐出"+s.get("Role").getname()+"?").setNegativeButton("取消",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which){
-                                        }
                                     }
-                            ).setPositiveButton("确定",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            if(whichView==0){
-                                                int tmpposition=checkStringInList(name,listItems1);
-                                                if(tmpposition!=-1){
-                                                    listItems1.remove(tmpposition);
-                                                    recycleAdapter.notifyItemRemoved(tmpposition);
-                                                    recycleAdapter.notifyItemChanged(tmpposition);
-                                                    recycleAdapter.notifyDataSetChanged();
-
-                                                }
-                                                Snackbar.make( view,"英雄 " + s.get("Role").getname() + "已从列表移除", Snackbar.LENGTH_LONG)
-                                                        .setAction("Action", null).show();
-                                            }
-                                            else {
-                                                int tmpposition=checkStringInList(name,listItems2);
-                                                if(tmpposition!=-1){
-                                                    listItems2.remove(tmpposition);
-                                                    simpleListItems2.remove(tmpposition);
-                                                    simpleAdapter.notifyDataSetChanged();
-                                                }
-                                                Snackbar.make( view,"英雄 " + s.get("Role").getname() + "已从麾下逐出", Snackbar.LENGTH_LONG)
-                                                        .setAction("Action", null).show();
-                                            }
-                                            searchlistItems.remove(position);
-                                            simpleListtmp.clear();
-                                            simpleListtmp.addAll(Role.getSimpleList(searchlistItems));
-                                            simpleAdapterTmp.notifyDataSetChanged();
-                                        }
+                                    Snackbar.make( view,"角色 " + tmpR.getname() + "已从列表移除", Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
+                                }
+                                else {
+                                    int tmpposition=checkStringInList(name,listItems2);
+                                    if(tmpposition!=-1){
+                                        listItems2.remove(tmpposition);
+                                        simpleListItems2.remove(tmpposition);
+                                        simpleAdapter.notifyDataSetChanged();
                                     }
-                            ).create();
-                            alterDialog.show();
+                                    Snackbar.make( view,"英雄 " + tmpR.getname() + "已从麾下逐出", Snackbar.LENGTH_LONG)
+                                            .setAction("Action", null).show();
+                                }
+                                searchlistItems.remove(position);
+                                simpleListtmp.clear();
+                                simpleListtmp.addAll(Role.getSimpleList(searchlistItems));
+                                simpleAdapterTmp.notifyDataSetChanged();
+                            }
                             return true;
                         }
                     });
                     changeToSearchListView();
                 }//!TextUtils.isEmpty(newText)
+                return false;
+            }
+            public void onQueryTextAct(String newText){
+
             }
         });
         //搜索框实现////////////////////////////////////////////////

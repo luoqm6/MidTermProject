@@ -5,10 +5,12 @@ package com.example.midtermproject;
  */
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.Image;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -30,6 +32,46 @@ import java.util.Map;
 import java.util.Random;
 
 public class ItemInfo extends AppCompatActivity {
+
+    final String []name={
+            "刘备","曹操",
+            "孙权","关羽",
+            "张飞","诸葛亮",
+            "周瑜","司马懿",
+            "张辽","甘宁",
+
+            "大乔","孙尚香",
+            "甄姬","小乔",
+            "蔡文姬","貂蝉",
+            "黄忠","赵云",
+            "马超","吕布",
+
+            "吕蒙","典韦",
+            "黄月英","孙策",
+            "曹植","刘禅",
+            "孙鲁班","郭女王",
+            "司马昭","华雄"
+    };
+    final int []imgId={
+            R.mipmap.liubei,R.mipmap.caocao,
+            R.mipmap.sunquan,R.mipmap.guanyu,
+            R.mipmap.zhangfei,R.mipmap.zhugeliang,
+            R.mipmap.zhouyu,R.mipmap.simayi,
+            R.mipmap.zhangliao,R.mipmap.ganning,
+
+            R.mipmap.daqiao,R.mipmap.sunshangxiang,
+            R.mipmap.zhenji,R.mipmap.xiaoqiao,
+            R.mipmap.caiwenji,R.mipmap.diaochan,
+            R.mipmap.huangzhong,R.mipmap.zhaoyun,
+            R.mipmap.machao,R.mipmap.lvbu,
+
+            R.mipmap.lvmeng,R.mipmap.dianwei,
+            R.mipmap.huangyueying,R.mipmap.sunce,
+            R.mipmap.caozhi,R.mipmap.liushan,
+            R.mipmap.sunluban,R.mipmap.guonvwang,
+            R.mipmap.simazhao,R.mipmap.huaxiong
+    };
+
     /*为了方便重写手机自带返回键返回这两个变量放在外面*/
     private Bundle bundle;
     private Role curR=new Role();
@@ -37,6 +79,12 @@ public class ItemInfo extends AppCompatActivity {
     private boolean isEditable=false;
     private static final String DYNAMICACTION = "com.example.midtermproject.DYNAMICACTION";
     DynamicBroadcastReceiver dynamicBroadcastReceiver=new DynamicBroadcastReceiver();
+
+
+    //对话框声明
+    private AlertDialog.Builder alertDialogRole;
+    private AlertDialog.Builder alertDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +130,57 @@ public class ItemInfo extends AppCompatActivity {
                 }
             }
         });
+
+
+        /*长按图片选择图片的图片选择框*/
+        alertDialogRole = new AlertDialog.Builder(this);
+        alertDialogRole.setTitle("请选择人物图片")
+                .setItems(name, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (name[i].equals(name[i])) {
+                            ImageView imageView = (ImageView) findViewById(R.id.ItemImgInfo);
+                            imageView.setImageResource(imgId[i]);
+                            ScrollView sv=(ScrollView) findViewById(R.id.scrollViewInfo);
+                            sv.setBackgroundResource(imgId[i]);
+                            sv.getBackground().mutate().setAlpha(50);
+                            curR.setimgId(imgId[i]);
+                        }
+                    }
+                })
+                .setNegativeButton("取消",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(getApplication(), "你点击了取消", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                .create();
+
+        /*长按人物图片提示图片增加方法*/
+//        alertDialog = new AlertDialog.Builder(this);
+//        final String mitems[] = {"从内置数据中添加", "自行设置"};
+//        alertDialog.setTitle("添加图片方式")
+//                .setItems(mitems, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        if (mitems[i].equals("从内置数据中添加")) {
+//                            alertDialogRole.show();
+//
+//                        } else if (mitems[i].equals("自行设置")) {
+//                            Toast.makeText(getApplication(), "暂不支持", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                })
+//                .setNegativeButton("取消",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                Toast.makeText(getApplication(), "你点击了取消", Toast.LENGTH_SHORT).show();
+//                            }
+//                        })
+//                .create();
+
 
         /*左上角返回按键返回主表，若加入购物车则带回数据*/
         ImageView backImg=(ImageView) findViewById(R.id.backBtnInfo);
@@ -165,7 +264,8 @@ public class ItemInfo extends AppCompatActivity {
         et=(EditText) findViewById(R.id.hometownInfo);
         tmp.sethometown(et.getText().toString());
         et=(EditText) findViewById(R.id.introInfo);
-        tmp.setintro(et.getText().toString().substring(8));
+        if(et.getText().toString().length()>8) tmp.setintro(et.getText().toString().substring(8));
+        else tmp.setintro(et.getText().toString());
         return tmp;
     }
 
@@ -246,6 +346,28 @@ public class ItemInfo extends AppCompatActivity {
         ImageView iv=(ImageView) findViewById(R.id.ItemImgInfo);
         if(curR.getimgId()>0)iv.setImageResource(curR.getimgId());
         else iv.setImageResource(R.mipmap.beijing1);
+        if(bool){
+            //长按图片设置
+            iv=(ImageView) findViewById(R.id.ItemImgInfo);
+            iv.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    alertDialogRole.show();
+                    return true;
+                }
+            });
+        }
+        else{
+            //长按图片设置
+            iv=(ImageView) findViewById(R.id.ItemImgInfo);
+            iv.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    return false;
+                }
+            });
+        }
+
     }
     public void BroadcastDynamic(String message){
         Bundle bundle = curR.putInBundle();
