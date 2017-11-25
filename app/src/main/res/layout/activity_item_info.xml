@@ -28,7 +28,6 @@
                 android:id="@+id/ItemImgInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:src="@mipmap/liubei" />
@@ -39,7 +38,7 @@
                 android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="40dp"
                 android:layout_marginEnd="10dp"
                 android:src="@mipmap/empty_star" >
 
@@ -47,6 +46,7 @@
 
             <ImageView
                 android:id="@+id/backBtnInfo"
+                android:background="@drawable/roundbuttonblacktonogrd"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentStart="true"
@@ -55,43 +55,46 @@
                 android:layout_marginTop="10dp"
                 android:src="@mipmap/back" />
 
-            <TextView
-                android:id="@+id/editInfo"
-                android:background="@drawable/roundbutton"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="改"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp" />
 
+
+            <EditText
+                android:id="@+id/nameInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginStart="25dp"
+                android:text="刘备"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:textSize="30sp"
+                android:background="@drawable/edittextbackgrd"/>
             <TextView
-            android:id="@+id/nameInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="40dp"
-            android:layout_marginStart="25dp"
-            android:text="刘备"
-            android:textColor="@color/colorWhite"
-            android:textSize="30sp" />
-            <TextView
+                android:id="@+id/nicknameTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="32dp"
+                android:layout_toEndOf="@id/nameInfo"
+                android:layout_marginStart="10dp"
+                android:text="字："
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:textSize="22sp"
+                android:background="@null"/>
+            <EditText
                 android:id="@+id/nicknameInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="42dp"
-                android:layout_toRightOf="@id/nameInfo"
-                android:layout_marginStart="10dp"
-                android:text="字：玄德"
+                android:layout_marginBottom="32dp"
+                android:layout_toEndOf="@id/nicknameTip"
+                android:text="玄德"
+                android:textStyle="bold"
                 android:textColor="@color/colorWhite"
-                android:textSize="22sp" />
+                android:textSize="22sp"
+                android:background="@drawable/edittextbackgrd"/>
         </RelativeLayout>
 
 
@@ -133,50 +136,89 @@
                 android:background="@color/colorGray" />
 
             <TextView
-                android:id="@+id/periodInfo"
+                android:id="@+id/periodTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/boldBar1"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="生卒：161年－223年6月10日"
+                android:text="生卒："
                 android:textColor="@color/colorBlack"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/sexInfo"
+                android:textSize="15sp"
+                android:clickable="false"
+                android:background="@null"/>
+            <EditText
+                android:id="@+id/periodInfo"
+                android:layout_toEndOf="@id/periodTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/periodInfo"
+                android:layout_below="@+id/boldBar1"
+                android:layout_marginTop="15dp"
+                android:text="161年－223年6月10日"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"
+                android:background="@drawable/edittextbackgrd" />
+
+            <TextView
+                android:id="@+id/sexTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/periodTip"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="3dp"
                 android:gravity="center"
-                android:text="性别：男"
+                android:text="性别："
                 android:textColor="@color/colorBlack"
                 android:textSize="15sp" />
+            <EditText
+                android:id="@+id/sexInfo"
+                android:layout_toEndOf="@id/sexTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/periodInfo"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="男"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"
+                android:background="@drawable/edittextbackgrd"/>
 
             <TextView
+                android:id="@+id/countryTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sexTip"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="势力："
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp" />
+            <EditText
                 android:id="@+id/countryInfo"
+                android:layout_toEndOf="@id/countryTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sexInfo"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:gravity="center"
-                android:text="势力：蜀"
+                android:text="蜀"
                 android:textColor="@color/colorBlack"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:background="@drawable/edittextbackgrd"/>
 
-            <TextView
+
+            <EditText
                 android:id="@+id/hometownInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/countryInfo"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="3dp"
-                android:text="籍贯：东汉末年幽州涿郡涿县（今河北省涿州市）人"
+                android:text="东汉末年幽州涿郡涿县（今河北省涿州市）人"
                 android:textColor="@color/colorBlack"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:background="@drawable/edittextbackgrd"/>
 
             <View
                 android:id="@+id/boldBar2"
@@ -186,7 +228,7 @@
                 android:layout_below="@+id/hometownInfo"
                 android:layout_centerHorizontal="true"
                 android:background="@color/colorGray" />
-            <TextView
+            <EditText
                 android:id="@+id/introInfo"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
@@ -194,9 +236,10 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="15dp"
-                android:text="  刘备，蜀汉的开国皇帝，汉景帝之子中山靖王刘胜的后代。刘备少年孤贫，以贩鞋织草席为生。黄巾起义时，刘备与关羽、张飞桃园结义，成为异姓兄弟，一同剿除黄巾，有功，任安喜县尉，不久辞官；董卓乱政之际，刘备随公孙瓒讨伐董卓，三人在虎牢关战败吕布。后诸侯割据，刘备势力弱小，经常寄人篱下，先后投靠过公孙瓒、曹操、袁绍、刘表等人，几经波折，却仍无自己的地盘。赤壁之战前夕，刘备在荆州三顾茅庐，请诸葛亮出山辅助，在赤壁之战中，联合孙权打败曹操，奠定了三分天下的基础。刘备在诸葛亮的帮助下占领荆州，不久又进兵益州，夺取汉中，建立了横跨荆益两州的政权。后关羽战死，荆州被孙权夺取，刘备大怒，于称帝后伐吴，在夷陵之战中为陆逊用火攻打得大败，不久病逝于白帝城，临终托孤于诸葛亮。"
+                android:text="刘备，蜀汉的开国皇帝，汉景帝之子中山靖王刘胜的后代。刘备少年孤贫，以贩鞋织草席为生。黄巾起义时，刘备与关羽、张飞桃园结义，成为异姓兄弟，一同剿除黄巾，有功，任安喜县尉，不久辞官；董卓乱政之际，刘备随公孙瓒讨伐董卓，三人在虎牢关战败吕布。后诸侯割据，刘备势力弱小，经常寄人篱下，先后投靠过公孙瓒、曹操、袁绍、刘表等人，几经波折，却仍无自己的地盘。赤壁之战前夕，刘备在荆州三顾茅庐，请诸葛亮出山辅助，在赤壁之战中，联合孙权打败曹操，奠定了三分天下的基础。刘备在诸葛亮的帮助下占领荆州，不久又进兵益州，夺取汉中，建立了横跨荆益两州的政权。后关羽战死，荆州被孙权夺取，刘备大怒，于称帝后伐吴，在夷陵之战中为陆逊用火攻打得大败，不久病逝于白帝城，临终托孤于诸葛亮。"
                 android:textColor="@color/colorBlack"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:background="@drawable/edittextbackgrd"/>
         </RelativeLayout>
 
 
@@ -221,6 +264,20 @@
             <!--android:dividerHeight="1dp"-->
             <!--android:scrollbars="vertical">-->
         <!--</ListView>-->
-
+        <TextView
+            android:id="@+id/editBtnInfo"
+            android:background="@drawable/roundbuttonblacktonogrd"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            app:layout_constraintTop_toBottomOf="@id/centerInfo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="80dp"
+            android:text="更改"
+            android:clickable="true"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

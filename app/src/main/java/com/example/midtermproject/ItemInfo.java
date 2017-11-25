@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -32,6 +33,8 @@ public class ItemInfo extends AppCompatActivity {
     /*为了方便重写手机自带返回键返回这两个变量放在外面*/
     private Bundle bundle;
     private Role curR=new Role();
+    private int whichView=0;
+    private boolean isEditable=false;
     private static final String DYNAMICACTION = "com.example.midtermproject.DYNAMICACTION";
     DynamicBroadcastReceiver dynamicBroadcastReceiver=new DynamicBroadcastReceiver();
 
@@ -48,26 +51,11 @@ public class ItemInfo extends AppCompatActivity {
 
         //设定商品详情界面的信息
         bundle=getIntent().getExtras();
+        whichView=bundle.getInt("whichView");
+        isEditable=bundle.getBoolean("isEditable");
         curR=new Role(bundle);
-        TextView tv=(TextView) findViewById(R.id.nameInfo);
-        tv.setText(curR.getname());
-        tv=(TextView) findViewById(R.id.nicknameInfo);
-        tv.setText("字："+curR.getnickname());
-        tv=(TextView) findViewById(R.id.periodInfo);
-        tv.setText("生卒："+curR.getperiod());
-        tv=(TextView) findViewById(R.id.sexInfo);
-        tv.setText("性别："+curR.getsex());
-        tv=(TextView) findViewById(R.id.countryInfo);
-        tv.setText("势力："+curR.getcountry());
-        tv=(TextView) findViewById(R.id.hometownInfo);
-        tv.setText(curR.gethometown());
-        tv=(TextView) findViewById(R.id.introInfo);
-        tv.setText("        "+curR.getintro());
-        ImageView iv=(ImageView) findViewById(R.id.ItemImgInfo);
-        iv.setImageResource(curR.getimgId());
-        ScrollView sv=(ScrollView) findViewById(R.id.scrollViewInfo);
-        sv.setBackgroundResource(curR.getimgId());
-        sv.getBackground().mutate().setAlpha(50);
+        setUIInfo();
+        setUIInfoEdit(isEditable);
         final ImageView favoriteImg=(ImageView) findViewById(R.id.StarInfo);
         if(!curR.getfavorite()){
             favoriteImg.setImageResource(R.mipmap.empty_star);
@@ -76,18 +64,24 @@ public class ItemInfo extends AppCompatActivity {
             favoriteImg.setImageResource(R.mipmap.full_star);
         }
 
-//        final String []btmInfo={"一键下单","分享商品","不感兴趣","查看更多促销信息"};
-//        List<Map<String,Object>> listItems1 = new ArrayList<>();
-//        for(int i=0;i<btmInfo.length;i++){
-//            Map<String,Object> tmp = new LinkedHashMap<>();
-//            tmp.put("infos",btmInfo[i]);
-//            listItems1.add(tmp);
-//        }
-//        ListView listview = (ListView) findViewById(R.id.ListViewInfo);
-//        SimpleAdapter simpleAdapter = new SimpleAdapter(
-//                this,listItems1,R.layout.listviewinfo,
-//                new String[]{"infos"},new int []{R.id.TxInInfo});
-//        listview.setAdapter(simpleAdapter);
+
+        /*最下方更改按键*/
+        final TextView editBtnInfo = (TextView) findViewById(R.id.editBtnInfo);
+        editBtnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editBtnInfo.getText().equals("更改")){
+                    editBtnInfo.setText("确定");
+                    setUIInfoEdit(true);
+                }
+                else{
+                    editBtnInfo.setText("更改");
+                    updateRole();
+                    setUIInfoEdit(false);
+                    Toast.makeText(getApplicationContext(),"人物"+curR.getname()+"已经更新", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         /*左上角返回按键返回主表，若加入购物车则带回数据*/
         ImageView backImg=(ImageView) findViewById(R.id.backBtnInfo);
@@ -128,9 +122,6 @@ public class ItemInfo extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
     /*重写手机自带的返回键返回主表，若加入购物车则带回数据*/
@@ -148,13 +139,113 @@ public class ItemInfo extends AppCompatActivity {
         //注销动态广播关键代码
         unregisterReceiver(dynamicBroadcastReceiver);
         Bundle bun;
-        bun=curR.putInBundle();
-        bun.putInt("whichView",0);
+        Role curRole = updateRole();
+        bun = curRole.putInBundle();
+        bun.putInt("whichView",whichView);
         intent.putExtras(bun);
         //回到RoleLists
         setResult(1,intent);
         finish();
         //startActivity(intent);
+    }
+
+    //根据当前界面更新Role的数据
+    public Role updateRole(){
+        Role tmp=new Role(curR);
+        TextView tv=(TextView) findViewById(R.id.nameInfo);
+        tmp.setname(tv.getText().toString());
+        tv=(TextView) findViewById(R.id.nicknameInfo);
+        tmp.setnickname(tv.getText().toString());
+        EditText et=(EditText) findViewById(R.id.periodInfo);
+        tmp.setperiod(et.getText().toString());
+        et=(EditText) findViewById(R.id.sexInfo);
+        tmp.setsex(et.getText().toString());
+        et=(EditText) findViewById(R.id.countryInfo);
+        tmp.setcountry(et.getText().toString());
+        et=(EditText) findViewById(R.id.hometownInfo);
+        tmp.sethometown(et.getText().toString());
+        et=(EditText) findViewById(R.id.introInfo);
+        tmp.setintro(et.getText().toString().substring(8));
+        return tmp;
+    }
+
+    public void setUIInfo(){
+        //设定商品详情界面的信息
+        EditText et=(EditText) findViewById(R.id.nameInfo);
+        et.setText(curR.getname());
+        et=(EditText) findViewById(R.id.nicknameInfo);
+        et.setText(curR.getnickname());
+        et=(EditText) findViewById(R.id.periodInfo);
+        et.setText(curR.getperiod());
+        et=(EditText) findViewById(R.id.sexInfo);
+        et.setText(curR.getsex());
+        et=(EditText) findViewById(R.id.countryInfo);
+        et.setText(curR.getcountry());
+        et=(EditText) findViewById(R.id.hometownInfo);
+        et.setText(curR.gethometown());
+        et=(EditText) findViewById(R.id.introInfo);
+        et.setText("        "+curR.getintro());
+        ImageView iv=(ImageView) findViewById(R.id.ItemImgInfo);
+        if(curR.getimgId()>0)iv.setImageResource(curR.getimgId());
+        else iv.setImageResource(R.mipmap.beijing1);
+        ScrollView sv=(ScrollView) findViewById(R.id.scrollViewInfo);
+        sv.setBackgroundResource(curR.getimgId());
+        sv.getBackground().mutate().setAlpha(50);
+        final ImageView favoriteImg=(ImageView) findViewById(R.id.StarInfo);
+        if(!curR.getfavorite()){
+            favoriteImg.setImageResource(R.mipmap.empty_star);
+        }
+        else{
+            favoriteImg.setImageResource(R.mipmap.full_star);
+        }
+    }
+    public void setUIInfoEdit(boolean bool){
+        //设定商品详情界面的信息
+        EditText et=(EditText) findViewById(R.id.nameInfo);
+        et.setFocusable(bool);
+        et.setFocusableInTouchMode(bool);
+        et.setClickable(bool);
+        et.setBackgroundResource(R.drawable.edittextbackgrd);
+        et=(EditText) findViewById(R.id.nicknameInfo);
+        et.setFocusable(bool);
+        et.setFocusableInTouchMode(bool);
+        et.setClickable(bool);
+        et.setBackgroundResource(R.drawable.edittextbackgrd);
+        et=(EditText) findViewById(R.id.periodInfo);
+        et.setFocusable(bool);
+        et.setFocusableInTouchMode(bool);
+        et.setClickable(bool);
+        et.setBackgroundResource(R.drawable.edittextbackgrd);
+        et=(EditText) findViewById(R.id.sexInfo);
+        et.setFocusable(bool);
+        et.setFocusableInTouchMode(bool);
+        et.setClickable(bool);
+        et.setBackgroundResource(R.drawable.edittextbackgrd);
+        et=(EditText) findViewById(R.id.countryInfo);
+        et.setFocusable(bool);
+        et.setFocusableInTouchMode(bool);
+        et.setClickable(bool);
+        et.setBackgroundResource(R.drawable.edittextbackgrd);
+        et=(EditText) findViewById(R.id.hometownInfo);
+        et.setFocusable(bool);
+        et.setFocusableInTouchMode(bool);
+        et.setClickable(bool);
+        et.setBackgroundResource(R.drawable.edittextbackgrd);
+        et=(EditText) findViewById(R.id.introInfo);
+        et.setFocusable(bool);
+        et.setFocusableInTouchMode(bool);
+        et.setClickable(bool);
+        et.setBackgroundResource(R.drawable.edittextbackgrd);
+        TextView editBtnInfo = (TextView) findViewById(R.id.editBtnInfo);
+        if(!bool) {
+            editBtnInfo.setText("更改");
+        }
+        else{
+            editBtnInfo.setText("确定");
+        }
+        ImageView iv=(ImageView) findViewById(R.id.ItemImgInfo);
+        if(curR.getimgId()>0)iv.setImageResource(curR.getimgId());
+        else iv.setImageResource(R.mipmap.beijing1);
     }
     public void BroadcastDynamic(String message){
         Bundle bundle = curR.putInBundle();

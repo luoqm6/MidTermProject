@@ -36,7 +36,8 @@ public class ExampleAppWidgetProvider extends AppWidgetProvider {
         updateViews.setImageViewResource(R.id.widgetImg,R.mipmap.tubiao);//设置
         //设置跳转至主界面所显示的列表
         Bundle bundle=new Bundle();
-        bundle.putInt("whichView",1);
+        bundle.putInt("whichView",0);
+        bundle.putBoolean("isEditable",false);
         mInent.putExtras(bundle);
         PendingIntent mPendingIntent=PendingIntent.getActivity(context,0,mInent,PendingIntent.FLAG_UPDATE_CURRENT);
         updateViews.setOnClickPendingIntent(R.id.widgetView,mPendingIntent);

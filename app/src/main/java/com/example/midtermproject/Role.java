@@ -23,14 +23,14 @@ public class Role implements Serializable{
     private int imgId;//商品对应的图片id
     private boolean favorite;//标记是否被收藏
     public Role(){
-        this.name="";
-        this.nickname="";
-        this.period="";
-        this.sex="";
-        this.country="";
-        this.hometown="";
-        this.intro="";
-        this.imgId=0;
+        this.name="请输入名字";
+        this.nickname="请输字";
+        this.period="请输入生卒";
+        this.sex="请输入性别";
+        this.country="请输入势力";
+        this.hometown="请输入籍贯";
+        this.intro="请输入简介";
+        this.imgId=R.mipmap.liubei;
         this.favorite=false;
     }
     public Role(Bundle bundle){
@@ -50,9 +50,11 @@ public class Role implements Serializable{
     public Role(Role role){
         this.country=role.getcountry();
         this.name=role.getname();
+        this.nickname=role.getnickname();
         this.period=role.getperiod();
         this.sex=role.getsex();
         this.hometown=role.gethometown();
+        this.intro=role.getintro();
         this.imgId=role.getimgId();
         this.favorite=role.getfavorite();
     }

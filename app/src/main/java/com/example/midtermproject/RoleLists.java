@@ -18,6 +18,7 @@ import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -182,7 +183,8 @@ public class RoleLists extends AppCompatActivity {
     private List<Map<String,Role>> listItems2 = new ArrayList<>();
     private List<Map<String,Object>> simpleListItems2 = Role.getSimpleList(listItems2);
     Map<String,Role> s;
-    SimpleAdapter simpleAdapter;
+
+
 
     //切换界面的一些变量两个浮动按钮声明
     private FloatingActionButton fab1 ;
@@ -193,6 +195,9 @@ public class RoleLists extends AppCompatActivity {
     String STATICACTION="com.example.midtermproject.STATICACTION";
 
 
+    //两个adapter
+    private CommonAdapter recycleAdapter;
+    private SimpleAdapter simpleAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,7 +213,7 @@ public class RoleLists extends AppCompatActivity {
 //            tmp.put("Role",tmpR);
 //            listItems1.add(tmp);
 //        }
-        initlistItems1(0,30);
+        initlistItems1(0,10);
 
 
         ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.rolelists) ;
@@ -245,7 +250,7 @@ public class RoleLists extends AppCompatActivity {
                 whichView=0;
             }
         });
-        /*左上角返回按键返回主界面，若加入购物车则带回数据*/
+        /*左上角返回按键返回主界面*/
         ImageView backBtnInList=(ImageView) findViewById(R.id.backBtnInList);
         backBtnInList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,22 +262,75 @@ public class RoleLists extends AppCompatActivity {
                 finish();
             }
         });
-        /*右上角返回按键返回主表，若加入购物车则带回数据*/
+
+
+        /*右上角加号从已有数据寻找人物列表*/
+        final AlertDialog.Builder alertDialogRole = new AlertDialog.Builder(this);
+        alertDialogRole.setTitle("内置数据中人物")
+                .setItems(name, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (name[i].equals(name[i])) {
+                            addTolistItems1(i);
+                            Toast.makeText(getApplication(), "添加新人物"+name[i], Toast.LENGTH_SHORT).show();
+                            recycleAdapter.notifyDataSetChanged();
+                        }
+                    }
+                })
+                .setNegativeButton("取消",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(getApplication(), "你点击了取消", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                .create();
+
+        /*右上角加号提示增加方法*/
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        final String mitems[] = {"从内置数据中添加", "自行设置"};
+        alertDialog.setTitle("添加人物方式")
+                .setItems(mitems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (mitems[i].equals("从内置数据中添加")) {
+                            alertDialogRole.show();
+
+                        } else if (mitems[i].equals("自行设置")) {
+                            Role newRole= new Role();
+                            Bundle bundle = newRole.putInBundle();
+                            bundle.putInt("whichView",whichView);
+                            bundle.putBoolean("isEditable",true);
+                            Intent intent=new Intent();
+                            intent.putExtras(bundle);
+                            intent.setClass(RoleLists.this,ItemInfo.class);
+                            startActivityForResult(intent,1);
+                        }
+                    }
+                })
+                .setNegativeButton("取消",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(getApplication(), "你点击了取消", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                .create();
+
+
+
+        /*右上角加号按键添加新角色*/
         ImageView addBtnInList=(ImageView) findViewById(R.id.addBtnInList);
         addBtnInList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent();
-                intent.setClass(RoleLists.this,MainActivity.class);
-                //回到RoleLists
-                setResult(1,intent);
-                finish();
+                alertDialog.show();
             }
         });
 
         //RecyclerView实现物品清单begin/////////////////
         final RecyclerView mRecyclerView;
-        final CommonAdapter recycleAdapter;
+        //final CommonAdapter recycleAdapter;
         final RecyclerView.LayoutManager mLayoutManager;
         mLayoutManager = new LinearLayoutManager(this);
         recycleAdapter = new CommonAdapter(this,R.layout.recyclerviewitem,listItems1){
@@ -294,6 +352,8 @@ public class RoleLists extends AppCompatActivity {
                 Role tmpR=s.get("Role");
                 //跳转至商品详情界面
                 Bundle bundle = tmpR.putInBundle();
+                bundle.putInt("whichView",whichView);
+                bundle.putBoolean("isEditable",false);
                 Intent intent=new Intent();
                 intent.putExtras(bundle);
                 intent.setClass(RoleLists.this,ItemInfo.class);
@@ -344,6 +404,8 @@ public class RoleLists extends AppCompatActivity {
                 s=listItems2.get(position);
                 Role tmpR=listItems2.get(position).get("Role");
                 Bundle bundle = tmpR.putInBundle();
+                bundle.putInt("whichView",whichView);
+                bundle.putBoolean("isEditable",false);
                 Intent intent=new Intent();
                 intent.putExtras(bundle);
                 intent.setClass(RoleLists.this,ItemInfo.class);
@@ -389,7 +451,6 @@ public class RoleLists extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //TODO onQueryTextSubmit
-                Toast.makeText(RoleLists.this, "cdsjcgsjgc", Toast.LENGTH_SHORT).show();
                 onQueryTextAct(query);
                 return false;
             }
@@ -446,6 +507,8 @@ public class RoleLists extends AppCompatActivity {
                             //if(position==0) return ;
                             Role tmpR=searchlistItems.get(position).get("Role");
                             Bundle bundle = tmpR.putInBundle();
+                            bundle.putInt("whichView",whichView);
+                            bundle.putBoolean("isEditable",false);
                             Intent intent=new Intent();
                             intent.putExtras(bundle);
                             intent.setClass(RoleLists.this,ItemInfo.class);
@@ -454,30 +517,51 @@ public class RoleLists extends AppCompatActivity {
                     });
                     SearchListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                         @Override
-                        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        public boolean onItemLongClick(AdapterView<?> parent,final View view,final int position, long id) {
                             Role tmpR=searchlistItems.get(position).get("Role");
-                            String name=tmpR.getname();
-                            searchlistItems.remove(position);
-                            simpleListtmp.clear();
-                            simpleListtmp.addAll(Role.getSimpleList(searchlistItems));
-                            simpleAdapterTmp.notifyDataSetChanged();
-                            if(whichView==0){
-                                int tmpposition=checkStringInList(name,listItems1);
-                                if(tmpposition!=-1){
-                                    listItems1.remove(tmpposition);
-                                    recycleAdapter.notifyItemRemoved(tmpposition);
-                                    recycleAdapter.notifyItemChanged(tmpposition);
-                                    recycleAdapter.notifyDataSetChanged();
-                                }
-                            }
-                            else {
-                                int tmpposition=checkStringInList(name,listItems2);
-                                if(tmpposition!=-1){
-                                    listItems2.remove(tmpposition);
-                                    simpleListItems2.remove(tmpposition);
-                                    simpleAdapter.notifyDataSetChanged();
-                                }
-                            }
+                            final String name=tmpR.getname();
+
+                            //购物车界面长按删除提示信息
+                            alterDialog.setTitle("逐出英雄").setMessage("从麾下逐出"+s.get("Role").getname()+"?").setNegativeButton("取消",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which){
+                                        }
+                                    }
+                            ).setPositiveButton("确定",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            if(whichView==0){
+                                                int tmpposition=checkStringInList(name,listItems1);
+                                                if(tmpposition!=-1){
+                                                    listItems1.remove(tmpposition);
+                                                    recycleAdapter.notifyItemRemoved(tmpposition);
+                                                    recycleAdapter.notifyItemChanged(tmpposition);
+                                                    recycleAdapter.notifyDataSetChanged();
+
+                                                }
+                                                Snackbar.make( view,"英雄 " + s.get("Role").getname() + "已从列表移除", Snackbar.LENGTH_LONG)
+                                                        .setAction("Action", null).show();
+                                            }
+                                            else {
+                                                int tmpposition=checkStringInList(name,listItems2);
+                                                if(tmpposition!=-1){
+                                                    listItems2.remove(tmpposition);
+                                                    simpleListItems2.remove(tmpposition);
+                                                    simpleAdapter.notifyDataSetChanged();
+                                                }
+                                                Snackbar.make( view,"英雄 " + s.get("Role").getname() + "已从麾下逐出", Snackbar.LENGTH_LONG)
+                                                        .setAction("Action", null).show();
+                                            }
+                                            searchlistItems.remove(position);
+                                            simpleListtmp.clear();
+                                            simpleListtmp.addAll(Role.getSimpleList(searchlistItems));
+                                            simpleAdapterTmp.notifyDataSetChanged();
+                                        }
+                                    }
+                            ).create();
+                            alterDialog.show();
                             return true;
                         }
                     });
@@ -493,8 +577,24 @@ public class RoleLists extends AppCompatActivity {
     protected void onActivityResult(int requestCode,int resultCode,Intent intent){
         if(requestCode==1){
             if(resultCode==1){
-                Bundle bundle=getIntent().getExtras();
+                Bundle bundle=intent.getExtras();
                 if(bundle!=null){
+                    Role role=new Role(bundle);
+                    Map<String,Role> tmp = new LinkedHashMap<>();
+                    tmp.put("Role",role);
+
+                    //每次回传都更新相应角色的内容
+                    int position=checkNameInList(role.getname(),listItems1);
+                    if(position>-1){
+                        listItems1.set(position,tmp);
+                    }
+                    else{
+                        listItems1.add(tmp);
+                        Toast.makeText(getApplicationContext(),"添加新人物"+role.getname() , Toast.LENGTH_SHORT).show();
+                    }
+                    recycleAdapter.notifyDataSetChanged();
+
+                    //切换页面
                     if(bundle.getInt("whichView")==0){
                         changeToRecyclerView();
                         whichView=0;
@@ -503,6 +603,7 @@ public class RoleLists extends AppCompatActivity {
                         changeToListView();
                         whichView=1;
                     }
+
                 }
             }
         }
@@ -539,6 +640,7 @@ public class RoleLists extends AppCompatActivity {
     protected void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         Bundle bundle=intent.getExtras();
+
         if(bundle!=null){
             if(bundle.getInt("whichView")==0){
                 changeToRecyclerView();
@@ -546,9 +648,14 @@ public class RoleLists extends AppCompatActivity {
             else{
                 changeToListView();
             }
+
+
         }
     }
 
+    public void upadteList(){
+        //TODO upadteList
+    }
 
     @Override
     public void onDestroy() {
@@ -563,15 +670,21 @@ public class RoleLists extends AppCompatActivity {
         if(left<0||left>=30) left=0;
         if(right>30)right=30;
         for(int i=left;i<right;i++){
-            Map<String,Role> tmp = new LinkedHashMap<>();
-            Role tmpR = new Role(country[i],name[i],nickname[i],period[i],sex[i],hometown[i],intro[i],imgId[i],false);
-            tmp.put("Role",tmpR);
-            listItems1.add(tmp);
+            addTolistItems1(i);
         }
+    }
+
+    //向初始的人物列表中加入从第i个人物
+    public void addTolistItems1(int i){
+        Map<String,Role> tmp = new LinkedHashMap<>();
+        Role tmpR = new Role(country[i],name[i],nickname[i],period[i],sex[i],hometown[i],intro[i],imgId[i],false);
+        tmp.put("Role",tmpR);
+        listItems1.add(tmp);
     }
 
     //切换当前的界面到RecyclerView的界面
     public void changeToRecyclerView(){
+        whichView=0;
         RecyclerView reLayout =(RecyclerView) findViewById(R.id.RecyclerView);
         reLayout.setVisibility(View.VISIBLE);
         ListView liLayout =(ListView) findViewById(R.id.ListView);
@@ -584,9 +697,12 @@ public class RoleLists extends AppCompatActivity {
         tv2.setVisibility(View.GONE);
         fab1.setVisibility(View.VISIBLE);
         fab2.setVisibility(View.GONE);
+        ImageButton imageButton=(ImageButton) findViewById(R.id.addBtnInList);
+        imageButton.setVisibility(View.VISIBLE);
     }
     //切换当前的界面到ListView的界面
     public void changeToListView(){
+        whichView=1;
         RecyclerView reLayout =(RecyclerView) findViewById(R.id.RecyclerView);
         reLayout.setVisibility(View.GONE);
         ListView liLayout =(ListView) findViewById(R.id.ListView);
@@ -599,6 +715,8 @@ public class RoleLists extends AppCompatActivity {
         tv2.setVisibility(View.VISIBLE);
         fab1.setVisibility(View.GONE);
         fab2.setVisibility(View.VISIBLE);
+        ImageButton imageButton=(ImageButton) findViewById(R.id.addBtnInList);
+        imageButton.setVisibility(View.GONE);
     }
     //更改当前的list界面到查询的SearchListView的界面
     public void changeToSearchListView(){
@@ -615,7 +733,6 @@ public class RoleLists extends AppCompatActivity {
             String nameText=list.get(i).get("Role").getname();
             String countryText=list.get(i).get("Role").getcountry();
             if(nameText.indexOf(s)==-1&&countryText.indexOf(s)==-1){
-
             }
             else{
                 return i;
@@ -623,5 +740,15 @@ public class RoleLists extends AppCompatActivity {
         }
         return -1;
     }
-
+    //查找list是否包含名字相同人物并返回位置
+    public int checkNameInList(String s,List<Map<String,Role>> list){
+        for(int i=0;i<list.size();i++){
+            String nameText=list.get(i).get("Role").getname();
+            String countryText=list.get(i).get("Role").getcountry();
+            if(nameText.equals(s)){
+                return i;
+            }
+        }
+        return -1;
+    }
 }

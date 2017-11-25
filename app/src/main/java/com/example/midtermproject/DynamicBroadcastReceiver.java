@@ -47,7 +47,8 @@ public class DynamicBroadcastReceiver extends BroadcastReceiver{
             //mInent.addCategory(Intent.CATEGORY_LAUNCHER);
             mInent.addCategory(Intent.CATEGORY_DEFAULT);
             bundle=tmpR.putinbundle();
-            bundle.putInt("whichView",1);
+            bundle.putInt("whichView",0);
+            bundle.putBoolean("isEditable",false);
             mInent.putExtras(bundle);
             mInent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent mPendingIntent=PendingIntent.getActivity(context,0,mInent,PendingIntent.FLAG_UPDATE_CURRENT);

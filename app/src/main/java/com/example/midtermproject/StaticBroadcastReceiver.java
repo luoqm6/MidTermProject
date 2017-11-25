@@ -43,7 +43,10 @@ public class StaticBroadcastReceiver extends BroadcastReceiver{
             Intent mInent=new Intent(context,ItemInfo.class);
             mInent.addCategory(Intent.CATEGORY_LAUNCHER);
             //mInent.addCategory(Intent.CATEGORY_DEFAULT);
-            mInent.putExtras(tmpR.putinbundle());
+            Bundle bundle1=tmpR.putinbundle();
+            bundle.putInt("whichView",0);
+            bundle.putBoolean("isEditable",false);
+            mInent.putExtras(bundle1);
             PendingIntent mPendingIntent=PendingIntent.getActivity(context,0,mInent,PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(mPendingIntent);
             //绑定Notification，发送通知请求
