@@ -68,7 +68,7 @@
             </intent-filter>
         </service>
 
-
+        <activity android:name=".Game"></activity>
     </application>
 
 </manifest>

@@ -63,7 +63,7 @@
         app:rippleColor="#ffffff"
         app:elevation="5dp"
         app:pressedTranslationZ="15dp"
-        app:srcCompat="@mipmap/shoplist" />
+        app:srcCompat="@mipmap/neizi" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabSL2"
@@ -78,7 +78,7 @@
         app:rippleColor="#ffffff"
         app:elevation="5dp"
         app:pressedTranslationZ="15dp"
-        app:srcCompat="@mipmap/mainpage" />
+        app:srcCompat="@mipmap/waizi" />
 
 
     <!--<include layout="@layout/content_main"-->
@@ -144,7 +144,7 @@
         android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:src="@mipmap/back"/>
     <ImageButton

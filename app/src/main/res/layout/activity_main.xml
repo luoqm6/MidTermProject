@@ -24,7 +24,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
-            android:id="@+id/text1"
+            android:id="@+id/textpeople"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/img_people"
@@ -46,12 +46,12 @@
             android:scaleType="fitXY"
             android:background="@drawable/buttonclickinmain"
             app:layout_constraintTop_toBottomOf="@+id/img_people"
-            app:layout_constraintBottom_toTopOf="@+id/img_set"
+            app:layout_constraintBottom_toTopOf="@+id/img_game"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
         <TextView
-            android:id="@+id/text2"
+            android:id="@+id/textweb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/img_web"
@@ -67,20 +67,48 @@
             />
         <ImageButton
             android:clickable="true"
-            android:id="@+id/img_set"
+            android:id="@+id/img_game"
             android:layout_width="300dp"
             android:layout_height="80dp"
             android:src="@mipmap/hengxiang1"
             android:scaleType="fitXY"
             android:background="@drawable/buttonclickinmain"
             app:layout_constraintTop_toBottomOf="@+id/img_web"
+            app:layout_constraintBottom_toTopOf="@+id/img_set"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+        <TextView
+            android:id="@+id/textgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/img_game"
+            app:layout_constraintBottom_toBottomOf="@+id/img_game"
+            app:layout_constraintLeft_toLeftOf="@+id/img_game"
+            app:layout_constraintRight_toRightOf="@+id/img_game"
+            android:autoLink="web"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack1"
+            android:text="趣味游戏"
+            android:textSize="30sp"
+            android:textScaleX="1.2"
+            />
+        <ImageButton
+            android:clickable="true"
+            android:id="@+id/img_set"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/hengxiang1"
+            android:scaleType="fitXY"
+            android:background="@drawable/buttonclickinmain"
+            app:layout_constraintTop_toBottomOf="@+id/img_game"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
 
             />
         <TextView
-            android:id="@+id/text3"
+            android:id="@+id/textset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/img_set"

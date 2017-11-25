@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
     //广播使用的filter
     String STATICACTION="com.example.midtermproject.STATICACTION";
+    private boolean hasSound = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton imageButton3 = (ImageButton) findViewById(R.id.img_game);
+        imageButton3.setAlpha(98);
+        imageButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Game.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("hasSound",hasSound);
+                intent.putExtras(bundle);
+                startActivityForResult(intent,10);
+            }
+        });
+
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         final String mitems[] = {"点击 开/关 背景音乐", "点击 开/关 音效"};
-        final boolean set_act[] = {false, false};//设置两个bool变量控制音乐、音效
+        final boolean set_act[] = {false, true};//设置两个bool变量控制音乐、音效
         alertDialog.setTitle("词典设置")
                 .setItems(mitems, new DialogInterface.OnClickListener() {
                     @Override
@@ -67,9 +81,11 @@ public class MainActivity extends AppCompatActivity {
                             if (set_act[i] == false) {
                                 set_act[i] = true;
                                 Toast.makeText(getApplicationContext(), "开启音效", Toast.LENGTH_SHORT).show();
+                                hasSound = true;
                             } else if (set_act[i] == true) {
                                 set_act[i] = false;
                                 Toast.makeText(getApplicationContext(), "关闭音效", Toast.LENGTH_SHORT).show();
+                                hasSound = false;
                             }
                         }
                     }
@@ -83,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
                         })
                 .create();
 
-        ImageView imageButton3 = (ImageView) findViewById(R.id.img_set);
-        imageButton3.setAlpha(98);
-        imageButton3.setOnClickListener(new View.OnClickListener() {
+        ImageView imageButton4 = (ImageView) findViewById(R.id.img_set);
+        imageButton4.setAlpha(98);
+        imageButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.show();
