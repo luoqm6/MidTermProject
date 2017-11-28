@@ -15,7 +15,6 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     //广播使用的filter
-    String STATICACTION="com.example.midtermproject.STATICACTION";
     private boolean hasSound = true;
 
     @Override

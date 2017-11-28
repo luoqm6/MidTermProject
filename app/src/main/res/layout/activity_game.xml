@@ -216,6 +216,36 @@
             >
 
         </Spinner>
+        <TextView
+            android:text="命中率：0% 正确率：0% 评分：0"
+            android:id="@+id/show_text_rp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toTopOf="@+id/show_Lvmsg"
+            android:textColor="#FFF"
+            android:layout_marginBottom="3dp"
+            />
+        <TextView
+            android:text="Lv0  0/0"
+            android:id="@+id/show_Lvmsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="#FFF"
+            android:layout_marginBottom="8dp"
+            />
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/show_Lvmsg"
+            android:layout_marginBottom="8dp"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
